@@ -22,13 +22,17 @@ For example to get the token which exactly starts from `htt` you can do:
 Fish out from any output with https://github.com/anki-code/xontrib-fishout
 > curl o=htt<press tab>
 ```
-As result the `o=htt` combination will be replaced to full url from previous output. 
+As result the `o=htt` combination will be replaced to full URL from previous output. 
 
 ## Environment
 | Environment variable          | Default | Description |
 | ----------------------------- | ------- | ----------- |
 | `XONTRIB_FISHOUT_SYMBOL`      | `'o'`     | First symbol to init the completer. |
 | `XONTRIB_FISHOUT_FUNCTIONS`   | `{'in': '-', 'startswith': '='}` | Function and the second symbol to init the completer. | 
+
+## Use cases
+### cat
+Use `cat file | head` because for `cat file`  the output will not be captured by xonsh.
 
 ## Thanks
 * I was inspired by @con-f-use`s [xontrib-histcpy](https://github.com/con-f-use/xontrib-histcpy). Thanks!
