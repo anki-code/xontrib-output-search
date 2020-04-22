@@ -2,7 +2,7 @@ Fish out tokens from previous command output in xonsh.
 
 ## Install
 ```bash
-pip install git+https://github.com/anki-code/xontrib-fishout
+xpip install git+https://github.com/anki-code/xontrib-fishout
 ```
 
 ## Usage
