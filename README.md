@@ -28,8 +28,8 @@ As result the `o=htt` combination will be replaced to full url from previous out
 ## Environment
 | Environment variable          | Default | Description |
 | ----------------------------- | ------- | ----------- |
-| `XONTRIB_FISHOUT_DEPTH`       | 1       | Count of latest history rows to search. |
-| `XONTRIB_FISHOUT_SYMBOL`      | `o`     | First symbol to init the completer. |
+| `XONTRIB_FISHOUT_DEPTH`       | `1`       | Count of latest history rows to search. |
+| `XONTRIB_FISHOUT_SYMBOL`      | `'o'`     | First symbol to init the completer. |
 | `XONTRIB_FISHOUT_FUNCTIONS`   | `{'in': '-', 'startswith': '='}` | Function and the second symbol to init the completer. | 
 
 ## Thanks
