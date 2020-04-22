@@ -11,23 +11,26 @@ $ xonsh
 > $XONSH_STORE_STDOUT = True
 > xontrib load fishout
 ```
-This command adds new completer to search by text in tokens from the previous output. Type in command line:
-*  `o-[text]` and press tab to search the text as substring
-*  `o=[text]` and press tab to search the text as a beginning of token
+Now you can use magic combinations `o-` and `o=` and tab button to show tokens list. Token is a something like word from previous output. 
+* `o-` is for searching by substring in token 
+* `o=` is for searching by beginning of token 
 
-Example: 
+To keep in mind the magic combinations imagine fishing. Symobol `o` is the lake and `-` is fishing rod. On the standard the keyboard this buttons are very close.
+
+For example to get the token which exactly starts from `htt` you can do: 
 ```
 > echo "Fish out from any output with https://github.com/anki-code/xontrib-fishout"
 Fish out from any output with https://github.com/anki-code/xontrib-fishout
-> curl o=htt<tab>
+> curl o=htt<press tab>
 ```
+As result the `o=htt` combination will be replaced to full url from previous output. 
 
 ## Environment
-| Environment variable          | Default |
-| ----------------------------- | ------- |
-| `XONTRIB_FISHOUT_DEPTH`       | 1       |
-| `XONTRIB_FISHOUT_SYMBOL`      | `o`     |
-| `XONTRIB_FISHOUT_FUNCTIONS`   | `{'in': '-', 'startswith': '='}` |
+| Environment variable          | Default | Description |
+| ----------------------------- | ------- | ----------- |
+| `XONTRIB_FISHOUT_DEPTH`       | 1       | Count of latest history rows to search. |
+| `XONTRIB_FISHOUT_SYMBOL`      | `o`     | First symbol to init the completer. |
+| `XONTRIB_FISHOUT_FUNCTIONS`   | `{'in': '-', 'startswith': '='}` | Function and the second symbol to init the completer. | 
 
 ## Thanks
 * I was inspired by @con-f-use`s [xontrib-histcpy](https://github.com/con-f-use/xontrib-histcpy). Thanks!
