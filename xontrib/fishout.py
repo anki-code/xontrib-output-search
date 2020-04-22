@@ -37,5 +37,5 @@ __xonsh__.completers.move_to_end('xontrib_fishout', last=False)
 __xonsh__.xontrib_fishout_previous_output = None
 @events.on_postcommand
 def _save_output(cmd: str, rtn: int, out: str or None, ts: list):
-    if out is not None:
+    if out is not None and str(out).strip() != '':
         __xonsh__.xontrib_fishout_previous_output = out
