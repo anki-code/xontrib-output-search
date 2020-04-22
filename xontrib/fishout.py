@@ -1,10 +1,13 @@
 #!/usr/bin/env xonsh
 
+import re
+
 _symbol = str(__xonsh__.env.get('XONTRIB_FISHOUT_SYMBOL') or 'o')
 _functions = dict(__xonsh__.env.get('XONTRIB_FISHOUT_FUNCTIONS') or {'in': '-', 'startswith': '='})
 
+color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
 def _tokenizer(text, prefix='', func='in'):
-    tokens = str(text).strip().replace('\n', ' ').replace('\r', ' ').split(' ')
+    tokens = color_regexp.sub('', str(text)).strip().replace('\n', ' ').replace('\r', ' ').split(' ')
     selected_tokens = []
     for t in tokens:
         if len(t) > 1:
