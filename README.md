@@ -1,5 +1,10 @@
 Fish out tokens from previous command output in xonsh.
 
+* You'll forget about selecting identifiers/names/urls by mouse.
+* You'll forget about searching autocomplete plugins for every app you use. For example if you're using docker 
+just run `docker ps` and you ready to inspect container by ID with `docker inspect <Alt+F>`.
+
+
 ## Install
 ```bash
 xpip install -U git+https://github.com/anki-code/xontrib-fishout
