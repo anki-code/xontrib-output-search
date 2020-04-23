@@ -41,7 +41,7 @@ $ echo '{"Some_json_data": 123}'
 $ <Alt+F>
 ```
 The tokenizer will return two tokens `{"Some_json_data":` and `123}` then generator found that some text framed 
-into special charecters. It will clean it and make `Some_json_data` and `123` tokens. The result list will be sorted 
+into special charecters. It will clean it and return new `Some_json_data` and `123` tokens. The result list will be sorted 
 and you will get the list with:
 * `123` (generated token)
 * `Some_json_data` (generated token)
