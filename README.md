@@ -7,7 +7,7 @@ Forget about searching autocomplete plugins for every app you use.<br>
 </p>
 
 <p align="center">  
-If you like the idea of xxh click ⭐ on the repo and stay tuned.
+If you like the idea of xontrib-fishout click ⭐ on the repo and stay tuned.
 </p>
 
 ## Install
