@@ -1,11 +1,12 @@
+<p align="center">
 Fish out tokens from the previous command output and use them for the next command.
 
-* You'll forget about selecting identifiers/names/urls by mouse.
-* You'll forget about searching autocomplete plugins for every app you use. 
+Forget about using mouse to select identifiers/names/urls and forget about searching autocomplete plugins for every app you use. 
+</p>
 
-For example if you're using docker 
-just run `docker ps` and you ready to inspect container by ID with `docker inspect <Alt+F>`. Then you see JSON data along a screen with
-`"NetworkID":"06f82ee31"` and you can just type `echo NetworkID is 06<Alt+F>` to get it. 
+<p align="center">  
+If you like the idea of xxh click ⭐ on the repo and stay tuned.
+</p>
 
 ## Install
 ```shell script
@@ -23,18 +24,19 @@ For example to get the tokens which contains `xon`:
 $ echo "Fish out from any output with https://github.com/anki-code/xontrib-fishout"
 Fish out from any output with https://github.com/anki-code/xontrib-fishout
 $ git clone xon<Alt+F>
+$ git clone https://github.com/anki-code/xontrib-fishout
 ```
-As result the `xon` will be replaced to full URL from previous output. 
 
 Another example:
 ```shell script
 $ echo '{"Try": "xontrib-fishout"}' # JSON data
 {"Try": "xontrib-fishout"}
 $ echo I should try x<Alt+F>
-```
-As result the `x` will be replaced to `xontrib-fishout`.  
+$ echo I should try xontrib-fishout
+```    
 
-## Tokenizer and generator
+## Development
+### Tokenizer and generator
 Tokenizer is the function which extract tokens (words) from the output. After this every token go to generator to search alternatives.
 
 For example:
