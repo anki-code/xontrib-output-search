@@ -1,5 +1,5 @@
 <p align="center">
-Fish out tokens from the previous command output and use them for the next command.
+Get tokens (identifiers/names/paths/URLs) from the previous command output and use them for the next command in <a href="https://xon.sh">xonsh</a>.
 </p>
 <p align="center">
 Forget about using mouse to select identifiers, names, paths or URLs.<br> 
@@ -7,34 +7,34 @@ Forget about searching autocomplete plugins for every app you use.<br>
 </p>
 
 <p align="center">  
-If you like the idea of xontrib-fishout click ⭐ on the repo and stay tuned.
+If you like the idea of xontrib-output-search click ⭐ on the repo and stay tuned.
 </p>
 
 ## Install
 ```shell script
-xpip install -U git+https://github.com/anki-code/xontrib-fishout
-echo 'xontrib load fishout' >> ~/.xonshrc
+xpip install -U git+https://github.com/anki-code/xontrib-output-search
+echo 'xontrib load output_search' >> ~/.xonshrc
 ```
 
 ## Usage
-After `xontrib load fishout` you can select tokens from latest output:
+After `xontrib load output_search` you can select tokens from latest output:
 * Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkey
 * Or type `f__` and press <kbd>Tab</kbd> key  
 
 For example to get the tokens which contains `xon`: 
 ```shell script
-$ echo "Fish out from any output with https://github.com/anki-code/xontrib-fishout"
-Fish out from any output with https://github.com/anki-code/xontrib-fishout
+$ echo "Fish out from any output with https://github.com/anki-code/xontrib-output-search"
+Fish out from any output with https://github.com/anki-code/xontrib-output-search
 $ git clone xon<Alt+F>
-$ git clone https://github.com/anki-code/xontrib-fishout
+$ git clone https://github.com/anki-code/xontrib-output-search
 ```
 
 Another example:
 ```shell script
-$ echo '{"Try": "xontrib-fishout"}' # JSON data
-{"Try": "xontrib-fishout"}
+$ echo '{"Try": "xontrib-output-search"}' # JSON data
+{"Try": "xontrib-output-search"}
 $ echo I should try x<Alt+F>
-$ echo I should try xontrib-fishout
+$ echo I should try xontrib-output-search
 ```    
 
 ## Development

@@ -2,14 +2,14 @@
 
 import re
 
-fishout_prefix = 'f__'
+output_search_prefix = 'f__'
 clean_regexp = re.compile(r'[\n\r\t]')
 color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
 framed_regexp = re.compile(r'^["\'{,:]*(.+?)[,}"\':]*$')
 
 def _generator(token):
     """
-    Create alternatives for token. Example: token '"Value"' has unquoted 'Value' alternative.
+    Create alternatives for token.
     """
     token_variation = []
     if len(token) > 2:
@@ -31,13 +31,13 @@ def _tokenizer(text, substring=''):
     return set(selected_tokens)
 
 
-def _xontrib_fishout_completer(prefix, line, begidx, endidx, ctx):
+def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
     """
-    To get suggestion of latest output tokens use Alt+F hotkey or f__ prefix before tab key.
+    Get new arguments from previous command output use Alt+F hotkey or f__ prefix before tab key.
     """
-    if prefix.startswith(fishout_prefix):
-        prefix_text = prefix[len(fishout_prefix):]
-        text = __xonsh__.xontrib_fishout_previous_output
+    if prefix.startswith(output_search_prefix):
+        prefix_text = prefix[len(output_search_prefix):]
+        text = __xonsh__.xontrib_output_search_previous_output
         tokens = _tokenizer(text, substring=prefix_text) if text else []
         if tokens:
             return (tokens, len(prefix))
@@ -45,14 +45,14 @@ def _xontrib_fishout_completer(prefix, line, begidx, endidx, ctx):
             return (set([prefix_text]), len(prefix))
 
 
-__xonsh__.completers['xontrib_fishout'] = _xontrib_fishout_completer
-__xonsh__.completers.move_to_end('xontrib_fishout', last=False)
+__xonsh__.completers['xontrib_output_search'] = _xontrib_output_search_completer
+__xonsh__.completers.move_to_end('xontrib_output_search', last=False)
 
-__xonsh__.xontrib_fishout_previous_output = None
+__xonsh__.xontrib_output_search_previous_output = None
 @events.on_postcommand
 def _save_output(cmd: str, rtn: int, out: str or None, ts: list):
     if out is not None and str(out).strip() != '':
-        __xonsh__.xontrib_fishout_previous_output = out
+        __xonsh__.xontrib_output_search_previous_output = out
 
 
 try:
@@ -65,16 +65,16 @@ try:
 
         @bindings.add('escape', 'f')
         def _(event):
-            if __xonsh__.xontrib_fishout_previous_output is not None:
+            if __xonsh__.xontrib_output_search_previous_output is not None:
                 text = event.current_buffer.text
                 splitted = str(text).split(' ')
                 space = '' if text == '' or len(splitted) == 1 else ' '
                 prefix = splitted[-1]
-                text_with_completer = ' '.join(splitted[:-1]) + f'{space}{fishout_prefix}{prefix}'
+                text_with_completer = ' '.join(splitted[:-1]) + f'{space}{output_search_prefix}{prefix}'
                 event.current_buffer.reset()
                 event.current_buffer.insert_text(text_with_completer)
                 event.current_buffer.start_completion(select_first=True)
 
 except Exception as e:
-    print('xontrib-fishout: Cannot set shortcuts')
+    print('xontrib-output-search: Cannot set shortcuts')
     raise
