@@ -10,25 +10,21 @@ just run `docker ps` and you ready to inspect container by ID with `docker inspe
 ## Install
 ```bash
 xpip install -U git+https://github.com/anki-code/xontrib-fishout
+echo 'xontrib load fishout' >> ~/.xonshrc
 ```
 
 ## Usage
-```
-xontrib load fishout
-```
-Now you can use:
-* <kbd>Alt</kbd> + <kbd>F</kbd> hotkey
-* `f__` prefix with tab button 
-
-to show tokens list from latest output. Token is a something like word from previous output. 
+After `xontrib load fishout` you can show tokens list from latest output:
+* Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkey
+* Or type `f__` and press <kbd>Tab</kbd> key  
 
 For example to get the token which exactly starts from `htt` you can do: 
 ```
 > echo "Fish out from any output with https://github.com/anki-code/xontrib-fishout"
 Fish out from any output with https://github.com/anki-code/xontrib-fishout
-> curl htt<Alt+F>
+> git clone xon<Alt+F>
 ```
-As result the `htt` will be replaced to full URL from previous output. 
+As result the `xon` will be replaced to full URL from previous output. 
 
 Another example:
 ```
