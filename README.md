@@ -46,7 +46,7 @@ and you will get the list with:
 * `123` (generated token)
 * `Some_json_data` (generated token)
 * `{"Some_json_data":` (original token)
-* `123}":` (original)
+* `123}":` (original token)
 
 It's really cool! 
 
