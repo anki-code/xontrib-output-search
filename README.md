@@ -1,7 +1,9 @@
 <p align="center">
 Fish out tokens from the previous command output and use them for the next command.
-
-Forget about using mouse to select identifiers/names/urls and forget about searching autocomplete plugins for every app you use. 
+</p>
+<p align="center">
+Forget about using mouse to select identifiers/names/urls.<br> 
+Forget about searching autocomplete plugins for every app you use.<br> 
 </p>
 
 <p align="center">  
