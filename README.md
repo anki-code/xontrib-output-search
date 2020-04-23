@@ -18,7 +18,7 @@ After `xontrib load fishout` you can select tokens from latest output:
 * Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkey
 * Or type `f__` and press <kbd>Tab</kbd> key  
 
-For example to get the token which exactly starts from `htt` you can do: 
+For example to get the tokens which contains `xon`: 
 ```shell script
 $ echo "Fish out from any output with https://github.com/anki-code/xontrib-fishout"
 Fish out from any output with https://github.com/anki-code/xontrib-fishout
@@ -28,7 +28,7 @@ As result the `xon` will be replaced to full URL from previous output.
 
 Another example:
 ```shell script
-$ echo '{"Try": "xontrib-fishout"}'
+$ echo '{"Try": "xontrib-fishout"}' # JSON data
 {"Try": "xontrib-fishout"}
 $ echo I should try x<Alt+F>
 ```
