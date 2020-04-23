@@ -7,11 +7,10 @@ xpip install -U git+https://github.com/anki-code/xontrib-fishout
 
 ## Usage
 ```
-$ xonsh
-> xontrib load fishout
+xontrib load fishout
 ```
 Now you can use:
-* `Alt+F` hotkey
+* `Alt`+`F` hotkey
 * `f__` prefix with tab button 
 
 to show tokens list from latest output. Token is a something like word from previous output. 
