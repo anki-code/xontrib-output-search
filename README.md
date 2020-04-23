@@ -1,4 +1,4 @@
-Fish out tokens from previous command output in xonsh.
+Fish out tokens from previous command output and use them for the next command.
 
 * You'll forget about selecting identifiers/names/urls by mouse.
 * You'll forget about searching autocomplete plugins for every app you use. 

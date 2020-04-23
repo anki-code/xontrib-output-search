@@ -33,7 +33,7 @@ def _tokenizer(text, prefix=''):
 
 def _xontrib_fishout_completer(prefix, line, begidx, endidx, ctx):
     """
-    To get suggestion of latest output tokens use Alt+F hotkey.
+    To get suggestion of latest output tokens use Alt+F hotkey or f__ prefix before tab key.
     """
     if prefix.startswith(fishout_prefix):
         prefix_text = prefix[len(fishout_prefix):]
