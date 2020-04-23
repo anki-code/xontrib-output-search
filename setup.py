@@ -18,7 +18,7 @@ setup(
     long_description_content_type='text/markdown',
     packages=['xontrib'],
     package_dir={'xontrib': 'xontrib'},
-    package_data={'xontrib': ['*.py']},
+    package_data={'xontrib': ['fishout.py']},
     platforms='any',
     url='https://github.com/anki-code/xontrib-fishout',
     project_urls={
