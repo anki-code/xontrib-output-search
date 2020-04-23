@@ -2,7 +2,7 @@
 Fish out tokens from the previous command output and use them for the next command.
 </p>
 <p align="center">
-Forget about using mouse to select identifiers/names/urls.<br> 
+Forget about using mouse to select identifiers, names, paths or URLs.<br> 
 Forget about searching autocomplete plugins for every app you use.<br> 
 </p>
 
