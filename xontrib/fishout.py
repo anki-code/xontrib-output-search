@@ -16,19 +16,19 @@ def _generator(token):
         g = framed_regexp.match(token)
         if g:
             token_variation += [g.group(1)]
-    return token_variation
+    return token_variation if token_variation != [token] else []
 
 
-def _tokenizer(text, prefix=''):
+def _tokenizer(text, substring=''):
     """
     Split text to tokens.
     """
     tokens = clean_regexp.sub(' ', color_regexp.sub('', str(text))).strip().split(' ')
     selected_tokens = []
     for t in tokens:
-        if len(t) > 1 and prefix.lower() in t.lower():
+        if len(t) > 1 and substring.lower() in t.lower():
             selected_tokens += [t] + _generator(t)
-    return selected_tokens
+    return set(selected_tokens)
 
 
 def _xontrib_fishout_completer(prefix, line, begidx, endidx, ctx):
@@ -38,9 +38,9 @@ def _xontrib_fishout_completer(prefix, line, begidx, endidx, ctx):
     if prefix.startswith(fishout_prefix):
         prefix_text = prefix[len(fishout_prefix):]
         text = __xonsh__.xontrib_fishout_previous_output
-        tokens = _tokenizer(text, prefix=prefix_text) if text else []
+        tokens = _tokenizer(text, substring=prefix_text) if text else []
         if tokens:
-            return (set(tokens), len(prefix))
+            return (tokens, len(prefix))
         else:
             return (set([prefix_text]), len(prefix))
 
