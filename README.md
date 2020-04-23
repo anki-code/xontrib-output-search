@@ -32,11 +32,10 @@ As result the `htt` will be replaced to full URL from previous output.
 
 Another example:
 ```
-> echo "Fish out from any output with https://github.com/anki-code/xontrib-fishout"
-Fish out from any output with https://github.com/anki-code/xontrib-fishout
-> curl  htt<Alt+F>
+> echo '{"New": "xontrib-fishout"}'
+> echo The new xontrib is x<Alt+F>
 ```
-As result the `htt` will be replaced to full URL from previous output. 
+As result the `x` will be replaced to `xontrib-fishout`.  
 
 ## Tokenizer and generator
 Tokenizer is the function which extract tokens (words) from the output. After this every token go to generator to search alternatives.
