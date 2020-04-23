@@ -14,7 +14,7 @@ echo 'xontrib load fishout' >> ~/.xonshrc
 ```
 
 ## Usage
-After `xontrib load fishout` you can show tokens list from latest output:
+After `xontrib load fishout` you can select tokens from latest output:
 * Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkey
 * Or type `f__` and press <kbd>Tab</kbd> key  
 
