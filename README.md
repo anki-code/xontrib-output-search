@@ -1,4 +1,4 @@
-Fish out tokens from previous command output and use them for the next command.
+Fish out tokens from the previous command output and use them for the next command.
 
 * You'll forget about selecting identifiers/names/urls by mouse.
 * You'll forget about searching autocomplete plugins for every app you use. 
@@ -17,7 +17,7 @@ xpip install -U git+https://github.com/anki-code/xontrib-fishout
 xontrib load fishout
 ```
 Now you can use:
-* `Alt`+`F` hotkey
+* <kbd>Alt</kbd> + <kbd>F</kbd> hotkey
 * `f__` prefix with tab button 
 
 to show tokens list from latest output. Token is a something like word from previous output. 
