@@ -41,7 +41,7 @@ $ echo '{"Fishout": 1}'
 $ <Alt+F>
 ```
 The tokenizer will return two tokens `{"Fishout":` and `1}` then generator found that some text framed 
-into special charecters. It will clean it and return new `Fishout` and `1` tokens. The result list will be sorted 
+into special charecters. It will clean the tokens and return new `Fishout` and `1` ones. The result list will be sorted 
 and you will get the list with:
 * `1` (generated token)
 * `Fishout` (generated token)
