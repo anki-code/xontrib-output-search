@@ -65,4 +65,4 @@ completely different behavior of tokenizer and generator let's think how to crea
 Use `cat file | head` instead.
 
 ## Thanks
-* I was inspired by @con-f-use`s [xontrib-histcpy](https://github.com/con-f-use/xontrib-histcpy). Thanks!
+* I was inspired by [xontrib-histcpy](https://github.com/con-f-use/xontrib-histcpy). Thanks @con-f-use!
