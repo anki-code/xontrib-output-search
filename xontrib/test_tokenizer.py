@@ -1,4 +1,4 @@
-from fishout import _tokenizer, _generator
+from fishout import _tokenizer
 
 def test_tokenizer_empty():
     assert _tokenizer('') == set()
