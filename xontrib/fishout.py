@@ -2,12 +2,10 @@
 
 import re
 
-_symbol = str(__xonsh__.env.get('XONTRIB_FISHOUT_SYMBOL') or 'o')
-_functions = dict(__xonsh__.env.get('XONTRIB_FISHOUT_FUNCTIONS') or {'in': '-', 'startswith': '='})
-
+fishout_prefix = 'f__'
 clean_regexp = re.compile(r'[\n\r\t]')
 color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
-framed_regexp = re.compile(r'^["\'{,:](.+?)[,}"\':]+$')
+framed_regexp = re.compile(r'^["\'{,:]*(.+?)[,}"\':]*$')
 
 def _generator(token):
     """
@@ -20,33 +18,32 @@ def _generator(token):
             token_variation += [g.group(1)]
     return token_variation
 
-def _tokenizer(text, prefix='', func='in'):
+
+def _tokenizer(text, prefix=''):
     """
     Split text to tokens.
     """
     tokens = clean_regexp.sub(' ', color_regexp.sub('', str(text))).strip().split(' ')
     selected_tokens = []
     for t in tokens:
-        if len(t) > 1:
-            if func == 'in' and prefix[2:].lower() in t.lower():
-                selected_tokens += [t] + _generator(t)
-            elif func == 'startswith' and t.lower().startswith(prefix[2:].lower()):
-                selected_tokens += [t]
+        if len(t) > 1 and prefix.lower() in t.lower():
+            selected_tokens += [t] + _generator(t)
     return selected_tokens
 
+
 def _xontrib_fishout_completer(prefix, line, begidx, endidx, ctx):
-    catch_function = None
-    for f, s in _functions.items():
-        begin = f'{_symbol}{s}'
-        if prefix.startswith(begin):
-            catch_function = f
-            break
-    if not catch_function:
-        return None
-    
-    text = __xonsh__.xontrib_fishout_previous_output
-    tokens = _tokenizer(text, prefix=prefix, func=catch_function) if text else []
-    return (set(tokens), len(prefix))
+    """
+    To get suggestion of latest output tokens use Alt+F hotkey.
+    """
+    if prefix.startswith(fishout_prefix):
+        prefix_text = prefix[len(fishout_prefix):]
+        text = __xonsh__.xontrib_fishout_previous_output
+        tokens = _tokenizer(text, prefix=prefix_text) if text else []
+        if tokens:
+            return (set(tokens), len(prefix))
+        else:
+            return (set([prefix_text]), len(prefix))
+
 
 __xonsh__.completers['xontrib_fishout'] = _xontrib_fishout_completer
 __xonsh__.completers.move_to_end('xontrib_fishout', last=False)
@@ -56,3 +53,28 @@ __xonsh__.xontrib_fishout_previous_output = None
 def _save_output(cmd: str, rtn: int, out: str or None, ts: list):
     if out is not None and str(out).strip() != '':
         __xonsh__.xontrib_fishout_previous_output = out
+
+
+try:
+    @events.on_ptk_create
+    def outout_keybindings(prompter, history, completer, bindings, **kw):
+        if __xonsh__.env.get('SHELL_TYPE') in ["prompt_toolkit", "prompt_toolkit2"]:
+            handler = bindings.add
+        else:
+            handler = bindings.registry.add_binding
+
+        @bindings.add('escape', 'f')
+        def _(event):
+            if __xonsh__.xontrib_fishout_previous_output is not None:
+                text = event.current_buffer.text
+                space = '' if text == '' else ' '
+                splitted = str(text).split(' ')
+                prefix = splitted[-1]
+                text_with_completer = ' '.join(splitted[:-1]) + f'{space}{fishout_prefix}{prefix}'
+                event.current_buffer.reset()
+                event.current_buffer.insert_text(text_with_completer)
+                event.current_buffer.start_completion(select_first=True)
+
+except Exception as e:
+    print('xontrib-fishout: Cannot set shortcuts')
+    raise
