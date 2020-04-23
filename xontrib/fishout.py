@@ -67,8 +67,8 @@ try:
         def _(event):
             if __xonsh__.xontrib_fishout_previous_output is not None:
                 text = event.current_buffer.text
-                space = '' if text == '' else ' '
                 splitted = str(text).split(' ')
+                space = '' if text == '' or len(splitted) == 1 else ' '
                 prefix = splitted[-1]
                 text_with_completer = ' '.join(splitted[:-1]) + f'{space}{fishout_prefix}{prefix}'
                 event.current_buffer.reset()
