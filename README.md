@@ -36,17 +36,17 @@ Tokenizer is the function which extract tokens (words) from the output. After th
 
 For example:
 ```
-$ echo '{"Fishout": 1}'
-{"Fishout": 1}
+$ echo '{"Fishout": 123}'
+{"Fishout": 123}
 $ <Alt+F>
 ```
-The tokenizer will return two tokens `{"Fishout":` and `1}` then generator found that some text framed 
-into special charecters. It will clean the tokens and return new `Fishout` and `1` ones. The result list will be sorted 
+The tokenizer will return two tokens `{"Fishout":` and `123}` then generator found that some text framed 
+into special charecters. It will clean the tokens and return new `Fishout` and `123` ones. The result list will be sorted 
 and you will get the list with:
-* `1` (generated token)
+* `123` (generated token)
 * `Fishout` (generated token)
 * `{"Fishout":` (original token)
-* `1}` (original token)
+* `123}` (original token)
 
 It's really cool! 
 
