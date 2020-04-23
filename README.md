@@ -8,7 +8,7 @@ just run `docker ps` and you ready to inspect container by ID with `docker inspe
 `"NetworkID":"06f82ee31"` and you can just type `docker network inspect 06<Alt+F>` to get it. It's really great! 
 
 ## Install
-```bash
+```shell script
 xpip install -U git+https://github.com/anki-code/xontrib-fishout
 echo 'xontrib load fishout' >> ~/.xonshrc
 ```
@@ -19,7 +19,7 @@ After `xontrib load fishout` you can show tokens list from latest output:
 * Or type `f__` and press <kbd>Tab</kbd> key  
 
 For example to get the token which exactly starts from `htt` you can do: 
-```
+```shell script
 > echo "Fish out from any output with https://github.com/anki-code/xontrib-fishout"
 Fish out from any output with https://github.com/anki-code/xontrib-fishout
 > git clone xon<Alt+F>
@@ -27,7 +27,7 @@ Fish out from any output with https://github.com/anki-code/xontrib-fishout
 As result the `xon` will be replaced to full URL from previous output. 
 
 Another example:
-```
+```shell script
 > echo '{"Try": "xontrib-fishout"}'
 {"Try": "xontrib-fishout"}
 > echo I should try x<Alt+F>
@@ -38,7 +38,7 @@ As result the `x` will be replaced to `xontrib-fishout`.
 Tokenizer is the function which extract tokens (words) from the output. After this every token go to generator to search alternatives.
 
 For example:
-```
+```shell script
 $ echo '{"ssh": "https://github.com/xxh/xxh"}' # JSON data
 {"ssh": "https://github.com/xxh/xxh"}
 $ <Alt+F>
