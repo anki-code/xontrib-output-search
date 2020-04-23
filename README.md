@@ -1,9 +1,11 @@
 Fish out tokens from previous command output in xonsh.
 
 * You'll forget about selecting identifiers/names/urls by mouse.
-* You'll forget about searching autocomplete plugins for every app you use. For example if you're using docker 
-just run `docker ps` and you ready to inspect container by ID with `docker inspect <Alt+F>`.
+* You'll forget about searching autocomplete plugins for every app you use. 
 
+For example if you're using docker 
+just run `docker ps` and you ready to inspect container by ID with `docker inspect <Alt+F>`. Then you see json data with
+`"NetworkID":"06f82ee31"` and you can just type `docker network inspect 06<Alt+F>` to get it. It's really great! 
 
 ## Install
 ```bash
