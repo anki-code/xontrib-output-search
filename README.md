@@ -5,7 +5,7 @@ Fish out tokens from the previous command output and use them for the next comma
 
 For example if you're using docker 
 just run `docker ps` and you ready to inspect container by ID with `docker inspect <Alt+F>`. Then you see json data with
-`"NetworkID":"06f82ee31"` and you can just type `echo NetworkID is 06<Alt+F>` to get it. It's really great! 
+`"NetworkID":"06f82ee31"` and you can just type `echo NetworkID is 06<Alt+F>` to get it. 
 
 ## Install
 ```shell script
