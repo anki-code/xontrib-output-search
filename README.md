@@ -4,7 +4,7 @@ Fish out tokens from the previous command output and use them for the next comma
 * You'll forget about searching autocomplete plugins for every app you use. 
 
 For example if you're using docker 
-just run `docker ps` and you ready to inspect container by ID with `docker inspect <Alt+F>`. Then you see json data with
+just run `docker ps` and you ready to inspect container by ID with `docker inspect <Alt+F>`. Then you see JSON data along a screen with
 `"NetworkID":"06f82ee31"` and you can just type `echo NetworkID is 06<Alt+F>` to get it. 
 
 ## Install
