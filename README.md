@@ -46,7 +46,7 @@ and you will get the list with:
 * `1` (generated token)
 * `Fishout` (generated token)
 * `{"Fishout":` (original token)
-* `1}":` (original token)
+* `1}` (original token)
 
 It's really cool! 
 
