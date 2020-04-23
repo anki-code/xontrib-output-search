@@ -39,17 +39,17 @@ Tokenizer is the function which extract tokens (words) from the output. After th
 
 For example:
 ```
-$ echo '{"Fishout": 123}'
-{"Fishout": 123}
+$ echo '{"ssh": "https://github.com/xxh/xxh"}' # JSON data
+{"ssh": "https://github.com/xxh/xxh"}
 $ <Alt+F>
 ```
-The tokenizer will return two tokens `{"Fishout":` and `123}` then generator found that some text framed 
-into special charecters. It will clean the tokens and return new `Fishout` and `123` ones. The result list will be sorted 
+The tokenizer will return two tokens `{"ssh":` and `"https://github.com/xxh/xxh"}` then generator found that some text framed 
+into special charecters. It will clean the tokens and return new `ssh` and `https://github.com/xxh/xxh` ones. The result list will be sorted 
 and you will get the list with:
-* `123` (generated token)
-* `Fishout` (generated token)
-* `{"Fishout":` (original token)
-* `123}` (original token)
+* `ssh` (generated token)
+* `https://github.com/xxh/xxh` (generated token)
+* `{"ssh":` (original token)
+* `"https://github.com/xxh/xxh"}` (original token)
 
 It's really cool! 
 
