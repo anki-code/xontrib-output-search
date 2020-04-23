@@ -33,6 +33,7 @@ As result the `htt` will be replaced to full URL from previous output.
 Another example:
 ```
 > echo '{"New": "xontrib-fishout"}'
+{"New": "xontrib-fishout"}
 > echo The new xontrib is x<Alt+F>
 ```
 As result the `x` will be replaced to `xontrib-fishout`.  
