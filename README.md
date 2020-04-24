@@ -37,7 +37,7 @@ $ git clone xx<Alt+F>
 $ git clone https://github.com/xxh/xxh
 ```
 
-JSON example:
+`json` or `dict` example:
 ```shell script
 $ echo '{"Try": "xontrib-output-search"}' # JSON data
 {"Try": "xontrib-output-search"}
@@ -45,7 +45,7 @@ $ echo I should try se<Alt+F>
 $ echo I should try xontrib-output-search
 ```    
 
-ENV example:
+`env`-like example:
 ```shell script
 $ env | grep ^PATH=
 PATH=/one/two:/three/four
@@ -75,7 +75,7 @@ _tokenizers = {
     'strip': _tokenizer_strip,  # Extract values from special charecters
                                 # Example: '{Hello}' -> ['Hello']
  
-    'json': _tokenizer_json,    # Extract keys and values from JSON
+    'dict': _tokenizer_dict,    # Extract keys and values from python dict or json
                                 # Example: '{"key": "val as str"}' -> ['key', 'val as str']
 
     'env': _tokenizer_env       # Extract name and values from env-like text
