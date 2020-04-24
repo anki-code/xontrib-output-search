@@ -12,7 +12,7 @@ def test_parse_one_2_three_4():
     assert parse('one 2 three 4') == ['one', 'three']
 
 def test_parse_specials():
-    assert parse('\n\t\r one \n\t\r two \n\t\r three \n\t\r') == ['one', 'three', 'two']
+    assert parse('\n\t\r one \n\t\r "two" \n\t\r three \n\t\r') == ['"two"', 'one', 'three', 'two']
 
 def test_parse_substring():
     assert parse('one two three four five six', substring='e') == ['five', 'one', 'three']
@@ -26,4 +26,4 @@ def test_parse_env_substrig():
 
 
 def test_parse_json():
-    assert parse('{"Hello": "hello world"}') == ['"hello', 'Hello', 'hello', 'hello world', 'world', 'world"}', '{"Hello":']
+    assert parse('{"Hello": "hello world"}') == ['"hello','Hello','Hello":','Hello": "hello world','hello','hello world','world','world"}','{"Hello":']

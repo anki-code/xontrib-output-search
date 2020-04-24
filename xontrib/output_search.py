@@ -21,7 +21,7 @@ def _tokenizer_strip(text, text_cmd='', substring='', current_cmd={}):
         if token == text:
             return []
         elif len(token) > 1 and substring.lower() in token:
-            return set(token)
+            return set([token])
     return set()
 
 
@@ -39,7 +39,7 @@ def _tokenizer_env(text, text_cmd='', substring='', current_cmd={}):
 
 
 def _tokenizer_json(text, text_cmd='', substring='', current_cmd={}):
-    if len(text) > 0 and text[:1] == '{' and text[-1:] == '}':
+    if len(text) > 1 and text[:1]+text[-1:] in ['{}', '[]']:
         try:
             j = json.loads(text)
             tokens = list(j.keys()) + [str(v) for v in j.values()]
@@ -58,10 +58,11 @@ _tokenizers = {
     'env': _tokenizer_env
 }
 
+
 def _parse(text, text_cmd='', substring='', current_cmd={}):
     tokenizer_tokens = []
     for name, tokenizer in _tokenizers.items():
-        for token in tokenizer(text, text_cmd, substring, current_cmd):
+        for token in tokenizer(text, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd):
             if len(token) > 2:
                 tokenizer_tokens += [token] + list(_parse(token, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd))
 
@@ -94,8 +95,10 @@ color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
 __xonsh__.xontrib_output_search_previous_output = None
 @events.on_postcommand
 def _save_output(cmd: str, rtn: int, out: str or None, ts: list):
-    if out is not None and out.strip() != '':
-        __xonsh__.xontrib_output_search_previous_output = {'output': color_regexp.sub('', out), 'cmd': cmd}
+    if out is not None:
+        out = out.strip()
+        if out:
+            __xonsh__.xontrib_output_search_previous_output = {'output': color_regexp.sub('', out), 'cmd': cmd}
 
 
 try:
