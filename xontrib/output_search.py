@@ -27,6 +27,9 @@ def _tokenizer_strip(text, text_cmd='', substring='', current_cmd={}):
 
 env_regexp = re.compile(r'^([A-Z0-9_]+?)=(.*)$')
 def _tokenizer_env(text, text_cmd='', substring='', current_cmd={}):
+    if len(text) < 4:
+        return set()
+
     tokens = []
     g = env_regexp.match(text)
     if g:
@@ -38,16 +41,33 @@ def _tokenizer_env(text, text_cmd='', substring='', current_cmd={}):
     return set([t for t in tokens if len(t) > 1 and substring_lower in t.lower()])
 
 
+def _dict_keys_values(d):
+    if type(d) in [dict, list]:
+        result = []
+        for i in d:
+            result += _dict_keys_values(i)
+            if type(d) == dict:
+                result += _dict_keys_values(d[i])
+        return result
+    if d is None:
+        return []
+    else:
+        return [str(d)]
+
 def _tokenizer_json(text, text_cmd='', substring='', current_cmd={}):
-    if len(text) > 1 and text[:1]+text[-1:] in ['{}', '[]']:
+    if len(text) < 6:
+        return set()
+
+    if text[:1]+text[-1:] in ['{}', '[]']:
         try:
             j = json.loads(text)
-            tokens = list(j.keys()) + [str(v) for v in j.values()]
+            tokens = list(set(_dict_keys_values(j)))
             substring_lower = substring.lower()
             selected_tokens = [t for t in tokens if len(t) > 1 and substring_lower in t.lower()]
             return set(selected_tokens)
         except:
             pass
+
     return set()
 
 
