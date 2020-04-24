@@ -41,7 +41,7 @@ JSON example:
 ```shell script
 $ echo '{"Try": "xontrib-output-search"}' # JSON data
 {"Try": "xontrib-output-search"}
-$ echo I should try x<Alt+F>
+$ echo I should try se<Alt+F>
 $ echo I should try xontrib-output-search
 ```    
 

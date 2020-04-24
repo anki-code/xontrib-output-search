@@ -1,4 +1,4 @@
-from output_search import _parse
+from output_search import _parse, _dict_keys_values
 
 # TODO: tests beginning from _save_output
 
@@ -30,3 +30,6 @@ def test_parse_env_substrig():
 def test_parse_json():
     assert parse('{"Hello": "hello world"}') == ['"hello','Hello','Hello":','Hello": "hello world','hello','hello world','world','world"}','{"Hello":']
 
+
+def test_dict_keys_values():
+    assert _dict_keys_values([{'a':{'b':{'c':123}}, 'd':[[1,2,3], None, True, {'e':1}]},4]) == {'keys': ['a', 'b', 'c', 'd', 'e'], 'values': [123, 1, 2, 3, True, 1, 4]}

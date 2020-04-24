@@ -2,6 +2,7 @@
 
 import re
 import json
+import ast
 
 output_search_prefix = 'f__'
 add_previous_cmd_to_output = True
@@ -42,32 +43,53 @@ def _tokenizer_env(text, text_cmd='', substring='', current_cmd={}):
     return set([t for t in tokens if len(t) > 1 and substring_lower in t.lower()])
 
 
-def _dict_keys_values(d):
-    if type(d) in [dict, list]:
-        result = []
-        for i in d:
-            result += _dict_keys_values(i)
-            if type(d) == dict:
-                result += _dict_keys_values(d[i])
-        return result
+def _dict_keys_values(d, target='values'):
+    result = {'keys': [], 'values': []}
     if d is None:
-        return []
+        return result
+    elif type(d) is dict:
+        for k in d:
+            result['keys'] += k
+            val_result = _dict_keys_values(d[k], 'values')
+            result['keys'] += val_result['keys']
+            result['values'] += val_result['values']
+        return result
+    elif type(d) in [list, set]:
+        for v in d:
+            val_result = _dict_keys_values(v, 'values')
+            result['keys'] += val_result['keys']
+            result['values'] += val_result['values']
+        return result
     else:
-        return [str(d)]
+        result[target] += [d]
+        return result
 
-def _tokenizer_json(text, text_cmd='', substring='', current_cmd={}):
+def _list_str(lst):
+    return [str(l) for l in lst]
+
+def _tokenizer_dict(text, text_cmd='', substring='', current_cmd={}):
     if len(text) < 6:
         return set()
 
     if text[:1]+text[-1:] in ['{}', '[]']:
+        dct = None
         try:
-            j = json.loads(text)
-            tokens = list(set(_dict_keys_values(j)))
+            dct = json.loads(text)
+        except:
+            pass
+
+        if dct is None:
+            try:
+                dct = ast.literal_eval(text)
+            except:
+                pass
+
+        if dct is not None:
+            dct_tokens = _dict_keys_values(dct)
+            tokens = list(set(_list_str(dct_tokens['keys']))) + list(set(_list_str(dct_tokens['values'])))
             substring_lower = substring.lower()
             selected_tokens = [t for t in tokens if len(t) > 1 and substring_lower in t.lower()]
             return set(selected_tokens)
-        except:
-            pass
 
     return set()
 
@@ -75,7 +97,7 @@ def _tokenizer_json(text, text_cmd='', substring='', current_cmd={}):
 _tokenizers = {
     'split': _tokenizer_split,
     'strip': _tokenizer_strip,
-    'json': _tokenizer_json,
+    'dict': _tokenizer_dict,
     'env': _tokenizer_env
 }
 
