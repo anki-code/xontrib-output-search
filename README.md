@@ -62,26 +62,26 @@ cd xontrib-output-search
 pytest
 ```
 
-### Tokenizer and generator
-Tokenizer is the function which extract tokens (words) from the output. After this every token go to the generator function to search alternatives.
+### Tokenizers
+Tokenizers are functions which extract tokens from the output. You can create your tokenizer and add it to `_tokenizers`.
 
-For example:
-```shell script
-$ echo 'Try ssh with "https://github.com/xxh/xxh"'
-Try ssh with "https://github.com/xxh/xxh"
-$ <Alt+F>
-```
-The tokenizer will return tokens `Try`, `ssh`, `with` and `"https://github.com/xxh/xxh"` then generator found that some text framed 
-into special charecters. It will clean the tokens and return `https://github.com/xxh/xxh` as the new token. The result list will be sorted 
-and you will get the list with:
-```
-https://github.com/xxh/xxh
-"https://github.com/xxh/xxh"
-ssh
-Try
-with
-```
+Current tokenizers:
+```python
+_tokenizers = {
+    
+    'split': _tokenizer_split,  # Splitting text by white spaces (space, tab, new line)
+                                # Example: 'Split  me \n now!' -> ['Split', 'me', 'now!']
 
+    'strip': _tokenizer_strip,  # Extract values from special charecters
+                                # Example: '{Hello}' -> ['Hello']
+ 
+    'json': _tokenizer_json,    # Extract keys and values from JSON
+                                # Example: '{"key": "val as str"}' -> ['key', 'val as str']
+
+    'env': _tokenizer_env       # Extract name and values from env-like text
+                                # Example: 'PATH=/bin:/etc' -> ['PATH', '/bin:/etc', '/bin', '/etc']
+}
+```
 ## Known issues
 #### `cat` is not captured
 Workaround: `cat file | head`.
