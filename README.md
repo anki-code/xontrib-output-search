@@ -63,26 +63,24 @@ pytest
 ```
 
 ### Tokenizer and generator
-Tokenizer is the function which extract tokens (words) from the output. After this every token go to generator to search alternatives.
+Tokenizer is the function which extract tokens (words) from the output. After this every token go to the generator function to search alternatives.
 
 For example:
 ```shell script
-$ echo '{"ssh": "https://github.com/xxh/xxh"}' # JSON data
-{"ssh": "https://github.com/xxh/xxh"}
+$ echo 'Try ssh with "https://github.com/xxh/xxh"'
+Try ssh with "https://github.com/xxh/xxh"
 $ <Alt+F>
 ```
-The tokenizer will return two tokens `{"ssh":` and `"https://github.com/xxh/xxh"}` then generator found that some text framed 
-into special charecters. It will clean the tokens and return new `ssh` and `https://github.com/xxh/xxh` ones. The result list will be sorted 
+The tokenizer will return tokens `Try`, `ssh`, `with` and `"https://github.com/xxh/xxh"` then generator found that some text framed 
+into special charecters. It will clean the tokens and return `https://github.com/xxh/xxh` as the new token. The result list will be sorted 
 and you will get the list with:
-* `ssh` (generated token)
-* `https://github.com/xxh/xxh` (generated token)
-* `{"ssh":` (original token)
-* `"https://github.com/xxh/xxh"}` (original token)
-
-It's really cool! 
-
-You can enrich tokenizer and generator for your tasks! Feel free to make pool request with improvements or if you need 
-completely different behavior of tokenizer and generator let's think how to create ability to elegant replace the default functions.  
+```
+https://github.com/xxh/xxh
+"https://github.com/xxh/xxh"
+ssh
+Try
+with
+```
 
 ## Known issues
 #### `cat` is not captured
