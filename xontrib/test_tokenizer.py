@@ -14,3 +14,9 @@ def test_tokenizer_specials():
 
 def test_tokenizer_substring():
     assert _tokenizer('one two three four five six', substring='e') == {'one', 'three', 'five'}
+
+def test_tokenizer_env():
+    assert _tokenizer('SHELL=bash\nPATH=/a/b:/c/d') == {'PATH=/a/b:/c/d', 'PATH', '/a/b:/c/d', '/a/b', '/c/d', 'SHELL=bash', 'SHELL', 'bash'}
+
+def test_tokenizer_env_substrig():
+    assert _tokenizer('SHELL=bash\nPATH=/a/b:/c/d', '/c') == {'PATH=/a/b:/c/d', '/a/b:/c/d', '/c/d'}

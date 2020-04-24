@@ -23,13 +23,13 @@ After `xontrib load output_search` you can select tokens from latest output:
 
 For example to get the tokens which contains `xon`: 
 ```shell script
-$ echo "Fish out from any output with https://github.com/anki-code/xontrib-output-search"
-Fish out from any output with https://github.com/anki-code/xontrib-output-search
+$ echo "Try https://github.com/anki-code/xontrib-output-search"
+Try https://github.com/anki-code/xontrib-output-search
 $ git clone xon<Alt+F>
 $ git clone https://github.com/anki-code/xontrib-output-search
 ```
 
-Another example:
+JSON example:
 ```shell script
 $ echo '{"Try": "xontrib-output-search"}' # JSON data
 {"Try": "xontrib-output-search"}
@@ -37,7 +37,23 @@ $ echo I should try x<Alt+F>
 $ echo I should try xontrib-output-search
 ```    
 
+ENV example:
+```shell script
+$ env | grep ^PATH=
+PATH=/one/two:/three/four
+$ ls /t<Alt+F>
+$ ls /three/four
+```    
+
 ## Development
+### Clone and test
+```shell script
+cd ~
+git clone https://github.com/anki-code/xontrib-output-search
+cd xontrib-output-search
+pytest
+```
+
 ### Tokenizer and generator
 Tokenizer is the function which extract tokens (words) from the output. After this every token go to generator to search alternatives.
 
@@ -61,8 +77,11 @@ You can enrich tokenizer and generator for your tasks! Feel free to make pool re
 completely different behavior of tokenizer and generator let's think how to create ability to elegant replace the default functions.  
 
 ## Known issues
-### `cat` is not captured
-Use `cat file | head` instead.
+#### `cat` is not captured
+Workaround: `cat file | head`.
+
+#### Alt+F may not working in PyCharm terminal
+Workaround: `f__` + <kbd>Tab</kbd>.
 
 ## Thanks
 * I was inspired by [xontrib-histcpy](https://github.com/con-f-use/xontrib-histcpy). Thanks @con-f-use!

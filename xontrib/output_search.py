@@ -6,17 +6,24 @@ output_search_prefix = 'f__'
 clean_regexp = re.compile(r'[\n\r\t]')
 color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
 framed_regexp = re.compile(r'^["\'{,:]*(.+?)[,}"\':]*$')
+env_regexp = re.compile(r'^([A-Z0-9_]+?)=(.*)$')
 
-def _generator(token):
+def _generator(token, substring):
     """
     Create alternatives for token.
     """
-    token_variation = []
+    tokens = [token]
     if len(token) > 2:
         g = framed_regexp.match(token)
         if g:
-            token_variation += [g.group(1)]
-    return token_variation if token_variation != [token] else []
+            tokens = [g.group(1)] + tokens
+        g = env_regexp.match(token)
+        if g:
+            env_var = g.group(1)
+            value = g.group(2)
+            values = value.split(':')
+            tokens = values + [env_var, value] + tokens
+    return [t for t in tokens if substring in t]
 
 
 def _tokenizer(text, substring=''):
@@ -27,7 +34,7 @@ def _tokenizer(text, substring=''):
     selected_tokens = []
     for t in tokens:
         if len(t) > 1 and substring.lower() in t.lower():
-            selected_tokens += [t] + _generator(t)
+            selected_tokens += _generator(t, substring)
     return set(selected_tokens)
 
 
