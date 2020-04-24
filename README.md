@@ -21,12 +21,20 @@ After `xontrib load output_search` you can select tokens from latest output:
 * Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkey
 * Or type `f__` and press <kbd>Tab</kbd> key  
 
-For example to get the tokens which contains `xon`: 
+Text example:
 ```shell script
-$ echo "Try https://github.com/anki-code/xontrib-output-search"
-Try https://github.com/anki-code/xontrib-output-search
-$ git clone xon<Alt+F>
-$ git clone https://github.com/anki-code/xontrib-output-search
+$ echo "Hello world"
+Hello world
+$ echo The second word is wo<Alt+F>
+$ echo The second word is world
+```
+
+URL example: 
+```shell script
+$ echo "Try https://github.com/xxh/xxh"
+Try https://github.com/xxh/xxh
+$ git clone xx<Alt+F>
+$ git clone https://github.com/xxh/xxh
 ```
 
 JSON example:
