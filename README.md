@@ -41,7 +41,7 @@ ENV example:
 ```shell script
 $ env | grep ^PATH=
 PATH=/one/two:/three/four
-$ ls /t<Alt+F>
+$ ls fo<Alt+F>
 $ ls /three/four
 ```    
 
