@@ -97,19 +97,19 @@ def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
     """
     Get new arguments from previous command output use Alt+F hotkey or f__ prefix before tab key.
     """
-    if prefix.startswith(output_search_prefix):
+    if __xonsh__.xontrib_output_search_completion or prefix.startswith(output_search_prefix):
+        __xonsh__.xontrib_output_search_completion = False
         current_cmd = {'prefix': prefix, 'line': line, 'begidx': begidx, 'endidx': endidx}
-        prefix_text = prefix[len(output_search_prefix):]
         prev = __xonsh__.xontrib_output_search_previous_output
         if 'output' in prev:
             cmd = prev['cmd']
             output = prev['output']
-            tokens = _parse(text=output, text_cmd=cmd, substring=prefix_text, current_cmd=current_cmd)
+            tokens = _parse(text=output, text_cmd=cmd, substring=prefix, current_cmd=current_cmd)
 
             if add_previous_cmd_to_output:
-                tokens = set.union(tokens, _parse(text=cmd, text_cmd=cmd, substring=prefix_text, current_cmd=current_cmd))
+                tokens = set.union(tokens, _parse(text=cmd, text_cmd=cmd, substring=prefix, current_cmd=current_cmd))
 
-            tokens = tokens if tokens else set([prefix_text])
+            tokens = tokens if tokens else set([prefix])
             return (tokens, len(prefix))
 
 
@@ -126,7 +126,7 @@ def _save_output(cmd: str, rtn: int, out: str or None, ts: list):
         if out:
             __xonsh__.xontrib_output_search_previous_output = {'output': color_regexp.sub('', out), 'cmd': cmd}
 
-
+__xonsh__.xontrib_output_search_completion=False
 try:
     @events.on_ptk_create
     def outout_keybindings(prompter, history, completer, bindings, **kw):
@@ -138,13 +138,7 @@ try:
         @bindings.add('escape', 'f')
         def _(event):
             if __xonsh__.xontrib_output_search_previous_output is not None:
-                text = event.current_buffer.text
-                splitted = str(text).split(' ')
-                space = '' if text == '' or len(splitted) == 1 else ' '
-                prefix = splitted[-1]
-                text_with_completer = ' '.join(splitted[:-1]) + f'{space}{output_search_prefix}{prefix}'
-                event.current_buffer.reset()
-                event.current_buffer.insert_text(text_with_completer)
+                __xonsh__.xontrib_output_search_completion=True
                 event.current_buffer.start_completion(select_first=True)
 
 except Exception as e:
