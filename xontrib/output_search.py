@@ -4,6 +4,7 @@ import re
 import json
 
 output_search_prefix = 'f__'
+add_previous_cmd_to_output = True
 
 clean_regexp = re.compile(r'[\n\r\t]')
 def _tokenizer_split(text, text_cmd='', substring='', current_cmd={}):
@@ -13,7 +14,7 @@ def _tokenizer_split(text, text_cmd='', substring='', current_cmd={}):
     return set(selected_tokens) if selected_tokens != [text] else set()
 
 
-framed_regexp = re.compile(r'^["\'{,:]*(.+?)[,}"\':]*$')
+framed_regexp = re.compile(r'^["\'({\[,:;]+(.+?)[,})\]"\':;]+$')
 def _tokenizer_strip(text, text_cmd='', substring='', current_cmd={}):
     g = framed_regexp.match(text)
     if g:
@@ -25,7 +26,7 @@ def _tokenizer_strip(text, text_cmd='', substring='', current_cmd={}):
     return set()
 
 
-env_regexp = re.compile(r'^([A-Z0-9_]+?)=(.*)$')
+env_regexp = re.compile(r'^([a-zA-Z0-9_]+?)=(.*)$')
 def _tokenizer_env(text, text_cmd='', substring='', current_cmd={}):
     if len(text) < 4:
         return set()
@@ -100,11 +101,16 @@ def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
         current_cmd = {'prefix': prefix, 'line': line, 'begidx': begidx, 'endidx': endidx}
         prefix_text = prefix[len(output_search_prefix):]
         prev = __xonsh__.xontrib_output_search_previous_output
-        cmd = prev['cmd'] if 'cmd' in prev else None
-        output = prev['output'] if 'output' in prev else None
-        tokens = _parse(text=output, text_cmd=cmd, substring=prefix_text, current_cmd=current_cmd) if output else []
-        tokens = tokens if tokens else set([prefix_text])
-        return (tokens, len(prefix))
+        if 'output' in prev:
+            cmd = prev['cmd']
+            output = prev['output']
+            tokens = _parse(text=output, text_cmd=cmd, substring=prefix_text, current_cmd=current_cmd)
+
+            if add_previous_cmd_to_output:
+                tokens = set.union(tokens, _parse(text=cmd, text_cmd=cmd, substring=prefix_text, current_cmd=current_cmd))
+
+            tokens = tokens if tokens else set([prefix_text])
+            return (tokens, len(prefix))
 
 
 __xonsh__.completers['xontrib_output_search'] = _xontrib_output_search_completer
