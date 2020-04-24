@@ -25,5 +25,5 @@ def test_parse_env_substrig():
     assert parse('SHELL=bash\nPATH=/a/b:/c/d', substring='/c') == ['/a/b:/c/d', '/c/d', 'PATH=/a/b:/c/d']
 
 
-def test_qwe():
-    assert parse('Try ssh with "https://github.com/xxh/xxh"') == 1
+def test_parse_json():
+    assert parse('{"Hello": "hello world"}') == ['"hello', 'Hello', 'hello', 'hello world', 'world', 'world"}', '{"Hello":']
