@@ -36,8 +36,8 @@ After `xontrib load output_search` you can select tokens from latest not empty o
 * Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkey
 * Or type `f__` and press <kbd>Tab</kbd> key  
 
-### Get any token from previous output
-Text example:
+## Features
+#### Word
 ```shell script
 $ echo "Hello world"
 Hello world
@@ -45,7 +45,7 @@ $ echo The second word is wo<Alt+F>
 $ echo The second word is world
 ```
 
-URL example: 
+#### URL 
 ```shell script
 $ echo "Try https://github.com/xxh/xxh"
 Try https://github.com/xxh/xxh
@@ -53,7 +53,7 @@ $ git clone xx<Alt+F>
 $ git clone https://github.com/xxh/xxh
 ```
 
-`json` or `dict` example:
+#### JSON and Python dict
 ```shell script
 $ echo '{"Try": "xontrib-output-search"}' # JSON data
 {"Try": "xontrib-output-search"}
@@ -61,7 +61,7 @@ $ echo I should try se<Alt+F>
 $ echo I should try xontrib-output-search
 ```    
 
-`env`-like example:
+#### env
 ```shell script
 $ env | grep ^PATH=
 PATH=/one/two:/three/four
@@ -69,9 +69,8 @@ $ ls fo<Alt+F>
 $ ls /three/four
 ```    
 
-#### It works for complex prefixes
+#### Complex prefixes
 
-Get the token from previous output after typing `git+`:
 ```shell script
 $ echo "Try https://github.com/anki-code/xontrib-output-search"
 Try https://github.com/anki-code/xontrib-output-search
@@ -79,15 +78,14 @@ Try https://github.com/anki-code/xontrib-output-search
 $ pip install git+xo<Alt+F>
 $ pip install git+https://github.com/anki-code/xontrib-output-search
 ```
-Get the token from previous output while typing the URL path:
+
 ```shell script
-$ echo "The id is 424242"
-The id is 424242
+$ echo "The port number is 4242"
+The port number is 4242
 
-$ curl https://test.com/id=4<Alt+F>
-$ curl https://test.com/id=424242
+$ curl https://127.0.0.1:4<Alt+F>
+$ curl https://127.0.0.1:4242
 ```
-
 
 ## Development
 ### Clone and test

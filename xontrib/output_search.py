@@ -9,6 +9,9 @@ output_search_prefix = 'f__'
 add_previous_cmd_to_output = True
 support_special_chars_in_prefix = True
 
+__xonsh__.xontrib_output_search_completion = False
+__xonsh__.xontrib_output_search_previous_output = None
+
 def filter_tokens(tokens, substring='', len_min=1):
     substring_lower = substring.lower()
     return {
@@ -122,22 +125,24 @@ _tokenizers = {
 }
 
 
-def _parse(text, text_cmd='', substring='', current_cmd={}, recursive=False):
+def _parse(text, text_cmd='', substring='', current_cmd={}, first=True):
     # print(f"TEXT: text")
     result_tokens = []
+    found_tokens = False
     for tokenizer_name, tokenizer in _tokenizers.items():
         tokens = tokenizer(text, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd)
-        found_new = len(tokens['final']) > 0 or len(tokens['new']) > 0
+        if len(tokens['final']) > 0 or len(tokens['new']) > 0:
+            found_tokens = True
         tokens = filter_tokens(tokens, substring)
         # print(f"    {tokenizer_name}: {tokens}")
         result_tokens += list(tokens['final'])
         if len(tokens['new']) > 0:
             for token in tokens['new']:
-                result_tokens += list(_parse(token, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd, recursive=True))
+                result_tokens += list(_parse(token, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd, first=False))
             break
 
     if result_tokens == []:
-        return set([text] if recursive and not found_new else []) if text != '' else set()
+        return set([text] if not found_tokens and substring.lower() in text.lower() else []) if text != '' else set()
 
     return set(result_tokens)
 
@@ -186,7 +191,6 @@ __xonsh__.completers.move_to_end('xontrib_output_search', last=False)
 
 
 color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
-__xonsh__.xontrib_output_search_previous_output = None
 @events.on_postcommand
 def _save_output(cmd: str, rtn: int, out: str or None, ts: list):
     if out is not None:
@@ -194,7 +198,6 @@ def _save_output(cmd: str, rtn: int, out: str or None, ts: list):
         if out:
             __xonsh__.xontrib_output_search_previous_output = {'output': color_regexp.sub('', out), 'cmd': cmd}
 
-__xonsh__.xontrib_output_search_completion=False
 try:
     @events.on_ptk_create
     def outout_keybindings(prompter, history, completer, bindings, **kw):
