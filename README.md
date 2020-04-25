@@ -17,7 +17,7 @@ echo 'xontrib load output_search' >> ~/.xonshrc
 ```
 
 ## Usage
-After `xontrib load output_search` you can select tokens from latest output:
+After `xontrib load output_search` you can select tokens from latest not empty output:
 * Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkey
 * Or type `f__` and press <kbd>Tab</kbd> key  
 
