@@ -12,7 +12,7 @@ Get identifiers, names, paths, URLs and words from the previous command output a
 <b>Save time</b>. Forget about using mouse, touchpad or trackball to get any words from output to the next command.
 </td>
 <td valign="top">
-<b>Secure</b>. The xontrib-output-search is not writing any output on the hard disk. Only latest not empty output stored in memory. It works the same way as xonsh shell and the security level is the same.
+<b>Secure</b>. The xontrib-output-search is not writing any output on the hard disk. Only latest not empty output stored in the memory. It works the same way as xonsh shell and the security level is the same.
 </td>
 <td valign="top">
 <b>Universal</b>. Forget about searching autocomplete plugins for every app you use and get the identifiers from the output.
