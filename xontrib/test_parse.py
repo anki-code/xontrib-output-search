@@ -10,6 +10,9 @@ def parse(*args, **kwargs):
 def test_parse_empty():
     assert parse('') == []
 
+def test_parse_empty_prefix():
+    assert parse('one two three', substring='none') == []
+
 def test_parse_one_2_three_4():
     assert parse('one 2 three 4') == ['one', 'three']
 

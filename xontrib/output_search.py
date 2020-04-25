@@ -121,18 +121,18 @@ _tokenizers = {
 }
 
 
-def _parse(text, text_cmd='', substring='', current_cmd={}):
+def _parse(text, text_cmd='', substring='', current_cmd={}, recursive=False):
     result_tokens = []
     for tokenizer_name, tokenizer in _tokenizers.items():
         tokens = tokenizer(text, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd)
         result_tokens += list(tokens['final'])
         if len(tokens['new']) > 0:
             for token in tokens['new']:
-                result_tokens += list(_parse(token, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd))
+                result_tokens += list(_parse(token, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd, recursive=True))
             break
 
     if result_tokens == []:
-        return set([text]) if text != '' else set()
+        return set([text] if recursive else []) if text != '' else set()
 
     return set(result_tokens)
 
