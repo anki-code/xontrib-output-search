@@ -21,6 +21,7 @@ After `xontrib load output_search` you can select tokens from latest output:
 * Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkey
 * Or type `f__` and press <kbd>Tab</kbd> key  
 
+### Get any token from previous output
 Text example:
 ```shell script
 $ echo "Hello world"
@@ -52,6 +53,26 @@ PATH=/one/two:/three/four
 $ ls fo<Alt+F>
 $ ls /three/four
 ```    
+
+#### It works for complex prefixes
+
+Get the token from previous output after typing `git+`:
+```shell script
+$ echo "Try https://github.com/anki-code/xontrib-output-search"
+Try https://github.com/anki-code/xontrib-output-search
+
+$ pip install git+xo<Alt+F>
+$ pip install git+https://github.com/anki-code/xontrib-output-search
+```
+Get the token from previous output while typing the URL path:
+```shell script
+$ echo "The id is 424242"
+The id is 424242
+
+$ curl https://test.com/id=4<Alt+F>
+$ curl https://test.com/id=424242
+```
+
 
 ## Development
 ### Clone and test
