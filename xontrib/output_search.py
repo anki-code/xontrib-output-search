@@ -7,6 +7,7 @@ from collections.abc import Iterable
 
 output_search_prefix = 'f__'
 add_previous_cmd_to_output = True
+support_special_chars_in_prefix = True
 
 def filter_tokens(tokens, substring='', len_min=1):
     substring_lower = substring.lower()
@@ -141,6 +142,13 @@ def _parse(text, text_cmd='', substring='', current_cmd={}, recursive=False):
     return set(result_tokens)
 
 
+def prev_special_char_pos(s, chars=':;+-_~=/\\{[(<>|#"\'^$%&?!.,'):
+    for i in reversed(range(0, len(s))):
+        if s[i] in chars:
+            return i
+    return None
+
+
 def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
     """
     Get new arguments from previous command output use Alt+F hotkey or f__ prefix before tab key.
@@ -153,9 +161,18 @@ def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
             cmd = prev['cmd']
             output = prev['output']
             tokens = _parse(text=output, text_cmd=cmd, substring=prefix, current_cmd=current_cmd)
-
             if add_previous_cmd_to_output:
                 tokens = set.union(tokens, _parse(text=cmd, text_cmd=cmd, substring=prefix, current_cmd=current_cmd))
+
+            if support_special_chars_in_prefix and tokens == set():
+                sc_pos = prev_special_char_pos(prefix)
+                if sc_pos is not None:
+                    prefix_after_char = prefix[sc_pos + 1:]
+                    prefix_before_char = prefix[:sc_pos + 1]
+                    tokens = _parse(text=output, text_cmd=cmd, substring=prefix_after_char, current_cmd=current_cmd)
+                    if add_previous_cmd_to_output:
+                        tokens = set.union(tokens, _parse(text=cmd, text_cmd=cmd, substring=prefix, current_cmd=current_cmd))
+                    tokens = set([prefix_before_char + t for t in tokens])
 
             tokens = tokens if tokens else set([prefix])
             return (tokens, len(prefix))
