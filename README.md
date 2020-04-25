@@ -1,10 +1,25 @@
 <p align="center">
 Get identifiers, names, paths, URLs and words from the previous command output and use them for the next command in <a href="https://xon.sh">xonsh</a>.
 </p>
-<p align="center">
-Forget about using mouse or touchpad.<br> 
-Forget about searching autocomplete plugins for every app you use.<br> 
-</p>
+
+<table width="100%">
+<col style="width:33%">
+<col style="width:33%">
+<col style="width:33%">
+<tbody>
+<tr>
+<td>
+<b>Save time</b>. Forget about using mouse, touchpad or trackball to get any words from output to the next command.
+</td>
+<td>
+<b>Secure</b>. The xontrib-output-search is not writing any output on the hard disk. Only latest not empty output stored in memory. It works the same way as xonsh shell and the security level is the same.
+</td>
+<td>
+<b>Universal</b>. Forget about searching autocomplete plugins for every app you use and get the identifiers from the output.
+</td>
+</tr>
+</tbody>
+</table>
 
 <p align="center">  
 If you like the idea of xontrib-output-search click ⭐ on the repo and stay tuned.
