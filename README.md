@@ -1,5 +1,5 @@
 <p align="center">
-Get tokens (identifiers/names/paths/URLs) from the previous command output and use them for the next command in <a href="https://xon.sh">xonsh</a>.
+Get identifiers, names, paths, URLs and words from the previous command output and use them for the next command in <a href="https://xon.sh">xonsh</a>.
 </p>
 <p align="center">
 Forget about using mouse to select identifiers, names, paths or URLs.<br> 
