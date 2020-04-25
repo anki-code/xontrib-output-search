@@ -106,7 +106,7 @@ _tokenizers = {
 #### `cat` is not captured
 Workaround: `cat file | head`.
 
-#### Alt+F may not working in PyCharm terminal
+#### <kbd>Alt</kbd> + <kbd>F</kbd> may not working in PyCharm terminal
 Workaround: `f__` + <kbd>Tab</kbd>.
 
 ## Thanks
