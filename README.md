@@ -2,7 +2,7 @@
 Get identifiers, names, paths, URLs and words from the previous command output and use them for the next command in <a href="https://xon.sh">xonsh</a>.
 </p>
 <p align="center">
-Forget about using mouse to select identifiers, names, paths or URLs.<br> 
+Forget about using mouse or touchpad.<br> 
 Forget about searching autocomplete plugins for every app you use.<br> 
 </p>
 
