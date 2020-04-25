@@ -3,44 +3,57 @@
 import re
 import json
 import ast
+from collections.abc import Iterable
 
 output_search_prefix = 'f__'
 add_previous_cmd_to_output = True
 
+def filter_tokens(tokens, substring='', len_min=1):
+    substring_lower = substring.lower()
+    return {
+        'final': set([t for t in tokens['final'] if len(t) > len_min and substring_lower in t.lower()]),
+        'new': set([t for t in tokens['new'] if len(t) > len_min and substring_lower in t.lower()])
+    }
+
+
 clean_regexp = re.compile(r'[\n\r\t]')
 def _tokenizer_split(text, text_cmd='', substring='', current_cmd={}):
     tokens = clean_regexp.sub(' ', text).strip().split(' ')
-    substring_lower = substring.lower()
-    selected_tokens = [t for t in tokens if len(t) > 1 and substring_lower in t.lower()]
-    return set(selected_tokens) if selected_tokens != [text] else set()
+    if tokens != [text]:
+        tokens = filter_tokens({'final': set(), 'new': set(tokens)}, substring)
+    else:
+        tokens = {'final': set(), 'new': set()}
+    return tokens
 
 
 framed_regexp = re.compile(r'^["\'({\[,:;]+(.+?)[,})\]"\':;]+$')
 def _tokenizer_strip(text, text_cmd='', substring='', current_cmd={}):
+    tokens = {'final': set(), 'new': set()}
     g = framed_regexp.match(text)
     if g:
         token = g.group(1)
         if token == text:
-            return []
+            return tokens
         elif len(token) > 1 and substring.lower() in token:
-            return set([token])
-    return set()
-
+            tokens = {'final': set(), 'new': set([token])}
+            return tokens
+    return tokens
 
 env_regexp = re.compile(r'^([a-zA-Z0-9_]+?)=(.*)$')
 def _tokenizer_env(text, text_cmd='', substring='', current_cmd={}):
+    tokens = {'final': set(), 'new': set()}
     if len(text) < 4:
-        return set()
-
-    tokens = []
+        return tokens
     g = env_regexp.match(text)
     if g:
-        env_var = g.group(1)
+        var = g.group(1)
         value = g.group(2)
         values = value.split(':')
-        tokens = values + [env_var, value]
-    substring_lower = substring.lower()
-    return set([t for t in tokens if len(t) > 1 and substring_lower in t.lower()])
+        tokens = {
+            'final': set([var, value] + values),
+            'new': set([value])
+        }
+    return filter_tokens(tokens, substring)
 
 
 def _dict_keys_values(d, target='values'):
@@ -49,7 +62,7 @@ def _dict_keys_values(d, target='values'):
         return result
     elif type(d) is dict:
         for k in d:
-            result['keys'] += k
+            result['keys'] += [k]
             val_result = _dict_keys_values(d[k], 'values')
             result['keys'] += val_result['keys']
             result['values'] += val_result['values']
@@ -65,11 +78,15 @@ def _dict_keys_values(d, target='values'):
         return result
 
 def _list_str(lst):
-    return [str(l) for l in lst]
+    if isinstance(lst, Iterable):
+        return [str(l) for l in lst]
+    else:
+        return str(lst)
 
 def _tokenizer_dict(text, text_cmd='', substring='', current_cmd={}):
+    tokens = {'final': set(), 'new': set()}
     if len(text) < 6:
-        return set()
+        return tokens
 
     if text[:1]+text[-1:] in ['{}', '[]']:
         dct = None
@@ -86,33 +103,38 @@ def _tokenizer_dict(text, text_cmd='', substring='', current_cmd={}):
 
         if dct is not None:
             dct_tokens = _dict_keys_values(dct)
-            tokens = list(set(_list_str(dct_tokens['keys']))) + list(set(_list_str(dct_tokens['values'])))
-            substring_lower = substring.lower()
-            selected_tokens = [t for t in tokens if len(t) > 1 and substring_lower in t.lower()]
-            return set(selected_tokens)
+            values = _list_str(dct_tokens['values'])
+            tokens = filter_tokens({
+                'final': set(_list_str(dct_tokens['keys']) + values),
+                'new': set(values)
+            }, substring)
+            return tokens
 
-    return set()
+    return tokens
 
 
 _tokenizers = {
-    'split': _tokenizer_split,
-    'strip': _tokenizer_strip,
     'dict': _tokenizer_dict,
-    'env': _tokenizer_env
+    'env': _tokenizer_env,
+    'split': _tokenizer_split,
+    'strip': _tokenizer_strip
 }
 
 
 def _parse(text, text_cmd='', substring='', current_cmd={}):
-    tokenizer_tokens = []
-    for name, tokenizer in _tokenizers.items():
-        for token in tokenizer(text, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd):
-            if len(token) > 2:
-                tokenizer_tokens += [token] + list(_parse(token, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd))
+    result_tokens = []
+    for tokenizer_name, tokenizer in _tokenizers.items():
+        tokens = tokenizer(text, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd)
+        result_tokens += list(tokens['final'])
+        if len(tokens['new']) > 0:
+            for token in tokens['new']:
+                result_tokens += list(_parse(token, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd))
+            break
 
-    if tokenizer_tokens == []:
-        return set()
+    if result_tokens == []:
+        return set([text]) if text != '' else set()
 
-    return set(tokenizer_tokens)
+    return set(result_tokens)
 
 
 def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):

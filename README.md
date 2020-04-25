@@ -68,18 +68,17 @@ Tokenizers are functions which extract tokens from the output. You can create yo
 Current tokenizers:
 ```python
 _tokenizers = {
+    'dict': _tokenizer_dict,    # Extract keys and values from python dict or json
+                                # Example: '{"key": "val as str"}' -> ['key', 'val as str']
+
+    'env': _tokenizer_env       # Extract name and values from env-like text
+                                # Example: 'PATH=/bin:/etc' -> ['PATH', '/bin:/etc', '/bin', '/etc']
     
     'split': _tokenizer_split,  # Splitting text by white spaces (space, tab, new line)
                                 # Example: 'Split  me \n now!' -> ['Split', 'me', 'now!']
 
     'strip': _tokenizer_strip,  # Extract values from special charecters
                                 # Example: '{Hello}' -> ['Hello']
- 
-    'dict': _tokenizer_dict,    # Extract keys and values from python dict or json
-                                # Example: '{"key": "val as str"}' -> ['key', 'val as str']
-
-    'env': _tokenizer_env       # Extract name and values from env-like text
-                                # Example: 'PATH=/bin:/etc' -> ['PATH', '/bin:/etc', '/bin', '/etc']
 }
 ```
 ## Known issues
