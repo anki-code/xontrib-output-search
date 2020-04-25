@@ -71,6 +71,7 @@ $ ls /three/four
 
 #### Complex prefixes
 
+Get the URL from previous output after typing `git+`:
 ```shell script
 $ echo "Try https://github.com/anki-code/xontrib-output-search"
 Try https://github.com/anki-code/xontrib-output-search
@@ -78,7 +79,7 @@ Try https://github.com/anki-code/xontrib-output-search
 $ pip install git+xo<Alt+F>
 $ pip install git+https://github.com/anki-code/xontrib-output-search
 ```
-
+Get the port number from previous output while typing the URL:
 ```shell script
 $ echo "The port number is 4242"
 The port number is 4242
