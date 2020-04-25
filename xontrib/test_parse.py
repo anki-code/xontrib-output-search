@@ -33,6 +33,9 @@ def test_parse_env_substrig():
 def test_parse_json():
     assert parse('{"Hello": "hello world"}') == ['Hello', 'hello', 'hello world', 'world']
 
+def test_parse_json_partial():
+    assert parse('"test": "1",') == ['test']
+
 
 def test_dict_keys_values():
     assert _dict_keys_values([{'abc':{'b':{'c':123}}, 'd':[[1,2,3], None, True, {'e':1}]},4]) == {'keys': ['abc', 'b', 'c', 'd', 'e'], 'values': [123, 1, 2, 3, True, 1, 4]}

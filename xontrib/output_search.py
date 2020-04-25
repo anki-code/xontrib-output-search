@@ -20,7 +20,7 @@ clean_regexp = re.compile(r'[\n\r\t]')
 def _tokenizer_split(text, text_cmd='', substring='', current_cmd={}):
     tokens = clean_regexp.sub(' ', text).strip().split(' ')
     if tokens != [text]:
-        tokens = filter_tokens({'final': set(), 'new': set(tokens)}, substring)
+        tokens = {'final': set(), 'new': set(tokens)}
     else:
         tokens = {'final': set(), 'new': set()}
     return tokens
@@ -34,7 +34,7 @@ def _tokenizer_strip(text, text_cmd='', substring='', current_cmd={}):
         token = g.group(1)
         if token == text:
             return tokens
-        elif len(token) > 1 and substring.lower() in token:
+        else:
             tokens = {'final': set(), 'new': set([token])}
             return tokens
     return tokens
@@ -53,7 +53,7 @@ def _tokenizer_env(text, text_cmd='', substring='', current_cmd={}):
             'final': set([var, value] + values),
             'new': set([value])
         }
-    return filter_tokens(tokens, substring)
+    return tokens
 
 
 def _dict_keys_values(d, target='values'):
@@ -104,10 +104,10 @@ def _tokenizer_dict(text, text_cmd='', substring='', current_cmd={}):
         if dct is not None:
             dct_tokens = _dict_keys_values(dct)
             values = _list_str(dct_tokens['values'])
-            tokens = filter_tokens({
+            tokens = {
                 'final': set(_list_str(dct_tokens['keys']) + values),
                 'new': set(values)
-            }, substring)
+            }
             return tokens
 
     return tokens
@@ -122,9 +122,13 @@ _tokenizers = {
 
 
 def _parse(text, text_cmd='', substring='', current_cmd={}, recursive=False):
+    # print(f"TEXT: text")
     result_tokens = []
     for tokenizer_name, tokenizer in _tokenizers.items():
         tokens = tokenizer(text, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd)
+        found_new = len(tokens['final']) > 0 or len(tokens['new']) > 0
+        tokens = filter_tokens(tokens, substring)
+        # print(f"    {tokenizer_name}: {tokens}")
         result_tokens += list(tokens['final'])
         if len(tokens['new']) > 0:
             for token in tokens['new']:
@@ -132,7 +136,7 @@ def _parse(text, text_cmd='', substring='', current_cmd={}, recursive=False):
             break
 
     if result_tokens == []:
-        return set([text] if recursive else []) if text != '' else set()
+        return set([text] if recursive and not found_new else []) if text != '' else set()
 
     return set(result_tokens)
 
