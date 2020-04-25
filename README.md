@@ -110,4 +110,4 @@ Workaround: `cat file | head`.
 Workaround: `f__` + <kbd>Tab</kbd>.
 
 ## Thanks
-* I was inspired by [xontrib-histcpy](https://github.com/con-f-use/xontrib-histcpy). Thanks @con-f-use!
+I was inspired by [xontrib-histcpy](https://github.com/con-f-use/xontrib-histcpy). Thanks @con-f-use!
