@@ -29,6 +29,7 @@ If you like the idea of xontrib-output-search click ⭐ on the repo and stay tun
 ```shell script
 xpip install -U git+https://github.com/anki-code/xontrib-output-search
 echo 'xontrib load output_search' >> ~/.xonshrc
+# Reload xonsh
 ```
 
 ## Usage
