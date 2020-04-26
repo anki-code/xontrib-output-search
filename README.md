@@ -117,7 +117,7 @@ tokenizers = {
 }
 ```
 ## Known issues
-#### `cat` is not captured
+#### `cat file` is not captured
 Workaround: `cat file | head`.
 
 #### Alt+F combination may not working in PyCharm terminal
