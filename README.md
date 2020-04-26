@@ -119,7 +119,7 @@ pytest
 ```
 To debug the tokenizer:
 ```shell script
-echo "Hello world" | python tokenizer_outupt.py
+echo "Hello world" | python tokenizer_outupt.py --pipe
 ```
 
 ## Known issues

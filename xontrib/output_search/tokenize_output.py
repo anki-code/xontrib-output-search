@@ -126,8 +126,8 @@ tokenizers_all = {
 }
 
 
-def tokenize_output(text, text_cmd='', substring='', current_cmd={}, tokenizers=['dict', 'env', 'split', 'strip'], recursion_level=0):
-    spacing = ' ' * recursion_level * 4
+def tokenize_output(text, text_cmd='', substring='', current_cmd={}, tokenizers=['dict', 'env', 'split', 'strip'], recursion_level=1):
+    spacing = ' ' * recursion_level * 2
     logging.debug(f"{spacing}TEXT: {text}")
     result_tokens = []
     found_tokens = False
@@ -137,7 +137,7 @@ def tokenize_output(text, text_cmd='', substring='', current_cmd={}, tokenizers=
         if len(tokens['final']) > 0 or len(tokens['new']) > 0:
             found_tokens = True
         tokens = filter_tokens(tokens, substring)
-        logging.debug(f"{spacing*2}{tokenizer_name} {tokens}")
+        logging.debug(f"{spacing}{tokenizer_name} {tokens}")
         result_tokens += list(tokens['final'])
         if len(tokens['new']) > 0:
             for token in tokens['new']:
@@ -148,11 +148,11 @@ def tokenize_output(text, text_cmd='', substring='', current_cmd={}, tokenizers=
 
     if result_tokens == []:
         r = set([text] if not found_tokens and substring.lower() in text.lower() else []) if text != '' else set()
-        logging.debug(f"{spacing*2}RETURN {r}")
+        logging.debug(f"{spacing}RETURN {r}")
         return r
 
     r = set(result_tokens)
-    logging.debug(f"{spacing*2}RETURN {r}")
+    logging.debug(f"{spacing}RETURN {r}")
     return r
 
 def tokenize_output_sorted(*args, **kwargs):
@@ -162,8 +162,19 @@ def tokenize_output_sorted(*args, **kwargs):
 
 if __name__ == '__main__':
     import sys
+    import argparse
     logging.getLogger().setLevel(logging.DEBUG)
-    print('Usage: echo "Hello world" | python tokenizer_outupt.py', file=sys.stderr)
-    stdin = '\n'.join(sys.stdin.readlines())
+
+    argp = argparse.ArgumentParser(description="Tokenize output")
+    argp.add_argument('--pipe', '-p', action='store_true')
+    args = argp.parse_args()
+
+    if args.pipe:
+        stdin = '\n'.join(sys.stdin.readlines())
+    else:
+        print('Usage: echo "Hello world" | python tokenizer_outupt.py --pipe', file=sys.stderr)
+        print('Example: \n', file=sys.stderr)
+        stdin = '"Hello" {world}'
+
     tokens = tokenize_output_sorted(stdin.strip())
     print(tokens)
