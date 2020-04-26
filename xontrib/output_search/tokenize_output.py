@@ -128,7 +128,8 @@ tokenizers_all = {
 
 def tokenize_output(text, text_cmd='', substring='', current_cmd={}, tokenizers=['dict', 'env', 'split', 'strip'], recursion_level=1):
     spacing = ' ' * recursion_level * 2
-    logging.debug(f"{spacing}TEXT: {text}")
+    recursion_level_num = f" {recursion_level:02d}"
+    logging.debug(f"{recursion_level_num}{spacing}TEXT: {text}")
     result_tokens = []
     found_tokens = False
     for tokenizer_name in tokenizers:
@@ -137,7 +138,7 @@ def tokenize_output(text, text_cmd='', substring='', current_cmd={}, tokenizers=
         if len(tokens['final']) > 0 or len(tokens['new']) > 0:
             found_tokens = True
         tokens = filter_tokens(tokens, substring)
-        logging.debug(f"{spacing}{tokenizer_name} {tokens}")
+        logging.debug(f"{recursion_level_num}{spacing*2}{tokenizer_name} {tokens}")
         result_tokens += list(tokens['final'])
         if len(tokens['new']) > 0:
             for token in tokens['new']:
@@ -148,11 +149,11 @@ def tokenize_output(text, text_cmd='', substring='', current_cmd={}, tokenizers=
 
     if result_tokens == []:
         r = set([text] if not found_tokens and substring.lower() in text.lower() else []) if text != '' else set()
-        logging.debug(f"{spacing}RETURN {r}")
+        logging.debug(f"{recursion_level_num}{spacing}RETURN {r}")
         return r
 
     r = set(result_tokens)
-    logging.debug(f"{spacing}RETURN {r}")
+    logging.debug(f"{recursion_level_num}{spacing}RETURN {r}")
     return r
 
 def tokenize_output_sorted(*args, **kwargs):
