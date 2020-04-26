@@ -45,8 +45,7 @@ Hello world
 $ echo The second word is wo<Alt+F>
 $ echo The second word is world
 ```
-
-#### URL tokenizing
+URL example:
 ```shell script
 $ echo "Try https://github.com/xxh/xxh"
 Try https://github.com/xxh/xxh
