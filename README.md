@@ -22,7 +22,7 @@ Get identifiers, names, paths, URLs and words from the previous command output a
 </table>
 
 <p align="center">  
-If you like the idea of xontrib-output-search click ⭐ on the repo and stay tuned.
+If you like the idea of xontrib-output-search click ⭐ on the repo and stay tuned by watching releases.
 </p>
 
 ## Install
