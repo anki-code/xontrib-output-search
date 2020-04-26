@@ -33,12 +33,12 @@ echo 'xontrib load output_search' >> ~/.xonshrc
 ```
 
 ## Usage
-After `xontrib load output_search` you can select tokens from latest not empty output:
-* Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkey
-* Or type `f__` and press <kbd>Tab</kbd> key  
+After `xontrib load output_search` you have two ways to select tokens from latest not empty output:
+* Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkeys
+* Type `f__` and press <kbd>Tab</kbd> key  
 
 ## Features
-#### Word
+#### Word tokenizing
 ```shell script
 $ echo "Hello world"
 Hello world
@@ -46,7 +46,7 @@ $ echo The second word is wo<Alt+F>
 $ echo The second word is world
 ```
 
-#### URL 
+#### URL tokenizing
 ```shell script
 $ echo "Try https://github.com/xxh/xxh"
 Try https://github.com/xxh/xxh
@@ -54,7 +54,7 @@ $ git clone xx<Alt+F>
 $ git clone https://github.com/xxh/xxh
 ```
 
-#### JSON and Python dict
+#### JSON and Python dict tokenizing
 ```shell script
 $ echo '{"Try": "xontrib-output-search"}' # JSON data
 {"Try": "xontrib-output-search"}
@@ -62,7 +62,7 @@ $ echo I should try se<Alt+F>
 $ echo I should try xontrib-output-search
 ```    
 
-#### env
+#### env tokenizing
 ```shell script
 $ env | grep ^PATH=
 PATH=/one/two:/three/four
@@ -70,7 +70,7 @@ $ ls fo<Alt+F>
 $ ls /three/four
 ```    
 
-#### Complex prefixes
+#### Complex prefixes autocomplete
 
 Get the URL from previous output after typing `git+`:
 ```shell script
@@ -85,8 +85,8 @@ Get the port number from previous output while typing the URL:
 $ echo "The port number is 4242"
 The port number is 4242
 
-$ curl https://127.0.0.1:4<Alt+F>
-$ curl https://127.0.0.1:4242
+$ curl http://127.0.0.1:4<Alt+F>
+$ curl http://127.0.0.1:4242
 ```
 
 ## Development
