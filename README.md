@@ -89,13 +89,6 @@ $ curl http://127.0.0.1:4242
 ```
 
 ## Development
-### Clone and test
-```shell script
-cd ~
-git clone https://github.com/anki-code/xontrib-output-search
-cd xontrib-output-search
-pytest
-```
 
 ### Tokenizers
 Tokenizers are functions which extract tokens from the output. You can create your tokenizer and add it to `_tokenizers`.
@@ -116,6 +109,18 @@ Current tokenizers:
 * **strip** - extract values from special charecters. 
 
   Example: `{Hello} "world"` tokens `['Hello', 'world']`.
+
+### Clone and test
+```shell script
+cd ~
+git clone https://github.com/anki-code/xontrib-output-search
+cd xontrib-output-search
+pytest
+```
+To debug the tokenizer:
+```shell script
+echo "Hello world" | python tokenizer_outupt.py
+```
 
 ## Known issues
 #### `cat file` is not captured

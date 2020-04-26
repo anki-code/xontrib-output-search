@@ -161,6 +161,9 @@ def tokenize_output_sorted(*args, **kwargs):
     return r
 
 if __name__ == '__main__':
+    import sys
     logging.getLogger().setLevel(logging.DEBUG)
-    tokens = tokenize_output_sorted('one "two" Three=four {"qwe":"hello world"}')
+    print('Usage: echo "Hello world" | python tokenizer_outupt.py', file=sys.stderr)
+    stdin = '\n'.join(sys.stdin.readlines())
+    tokens = tokenize_output_sorted(stdin.strip())
     print(tokens)
