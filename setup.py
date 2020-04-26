@@ -13,7 +13,7 @@ setup(
     license='BSD',
     author='anki',
     author_email='author@example.com',
-    description="Get tokens (identifiers/names/paths/URLs) from the previous command output and use them for the next command in xonsh.",
+    description="Get identifiers, names, paths, URLs and words from the previous command output and use them for the next command in xonsh.",
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=['xontrib'],
