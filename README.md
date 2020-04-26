@@ -55,7 +55,7 @@ $ git clone https://github.com/xxh/xxh
 
 #### JSON and Python dict tokenizing
 ```shell script
-$ echo '{"Try": "xontrib-output-search"}' # JSON data
+$ echo '{"Try": "xontrib-output-search"}'
 {"Try": "xontrib-output-search"}
 $ echo I should try se<Alt+F>
 $ echo I should try xontrib-output-search
