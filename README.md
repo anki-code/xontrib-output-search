@@ -101,21 +101,22 @@ pytest
 Tokenizers are functions which extract tokens from the output. You can create your tokenizer and add it to `_tokenizers`.
 
 Current tokenizers: 
-```python
-tokenizers = {
-    'dict': tokenizer_dict,    # Extract keys and values from python dict or json
-                               # Example: '{"key": "val as str"}' -> ['key', 'val as str']
+* **dict** -  extract keys and values from python dict or json. 
+ 
+  Example: `{"key": "val as str"}` tokens `['key', 'val as str']`.
+  
+* **env** - extract name and values from env-like text. 
 
-    'env': tokenizer_env       # Extract name and values from env-like text
-                               # Example: 'PATH=/bin:/etc' -> ['PATH', '/bin:/etc', '/bin', '/etc']
-    
-    'split': tokenizer_split,  # Splitting text by white spaces (space, tab, new line)
-                               # Example: 'Split  me \n now!' -> ['Split', 'me', 'now!']
+  Example: `PATH=/bin:/etc` tokens `['PATH', '/bin:/etc', '/bin', '/etc']`.
+  
+* **split** - splitting text by white spaces (space, tab, new line). 
+  
+  Example: `Split  me \n now!` tokens `['Split', 'me', 'now!']`.
+  
+* **strip** - extract values from special charecters. 
 
-    'strip': tokenizer_strip,  # Extract values from special charecters
-                               # Example: '{Hello}' -> ['Hello']
-}
-```
+  Example: `{Hello} "world"` tokens `['Hello', 'world']`.
+
 ## Known issues
 #### `cat file` is not captured
 Workaround: `cat file | head`.
