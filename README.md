@@ -93,14 +93,19 @@ $ curl http://127.0.0.1:4242
 ### Tokenizers
 Tokenizer is a functions which extract tokens from the text.
 
-| Tokenizer  | Text  | Tokens |
-| ---------- | ----- | ------ |
-| **dict**   | `{"key": "val as str"}` | `['key', 'val as str']` |
-| **env**    | `PATH=/bin:/etc` | `['PATH', '/bin:/etc', '/bin', '/etc']` |   
-| **split**  | `Split  me \n now!` | `['Split', 'me', 'now!']` |   
-| **strip**  | `{Hello} "world"` | `['Hello', 'world']` |   
+| Priority | Tokenizer  | Text  | Tokens |
+| ---------| ---------- | ----- | ------ |
+| 1        | **dict**   | `{"key": "val as str"}` | `['key', 'val as str']` |
+| 2        | **env**    | `PATH=/bin:/etc` | `['PATH', '/bin:/etc', '/bin', '/etc']` |   
+| 3        | **split**  | `Split  me \n now!` | `['Split', 'me', 'now!']` |   
+| 4        | **strip**  | `{Hello}` | `['Hello']` |   
 
-You can create your tokenizer and add it to `tokenizers_all` in `tokenize_output.py`.  
+You can create your tokenizer and add it to `tokenizers_all` in `tokenize_output.py`.
+
+Tokenizing is a recursive process where every tokenizer create `final` and `new` tokens. 
+The `final` tokens directly go to the result list of tokens. The `new` tokens go to all 
+tokenizers again to find new tokens. As result if there is a mix of json and env data 
+in the output it will be found and tokenized in appropriate way.  
 
 ### Test and debug
 Run tests:
