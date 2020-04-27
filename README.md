@@ -119,7 +119,7 @@ Check that `output_search` loaded:
 $ xontrib list output_search
 output_search  installed  loaded
 
-$ completer list
+$ completer list | grep output_search
 xontrib_output_search
 ```
 
