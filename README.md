@@ -102,7 +102,7 @@ Tokenizer is a functions which extract tokens from the text.
 
 You can create your tokenizer and add it to `tokenizers_all` in `tokenize_output.py`.
 
-Tokenizing is a recursive process where every tokenizer create `final` and `new` tokens. 
+Tokenizing is a recursive process where every tokenizer returns `final` and `new` tokens. 
 The `final` tokens directly go to the result list of tokens. The `new` tokens go to all 
 tokenizers again to find new tokens. As result if there is a mix of json and env data 
 in the output it will be found and tokenized in appropriate way.  
