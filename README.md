@@ -93,12 +93,12 @@ $ curl http://127.0.0.1:4242
 ### Tokenizers
 Tokenizer is a functions which extract tokens from the text.
 
-| Tokenizer | Text  | Tokens |
-| --------- | ----- | ------ |
-| **dict** - extract from<br> python dict or json. | `{"key": "val as str"}` | `['key', 'val as str']` |
-| **env** - extract from<br> env-like text. | `PATH=/bin:/etc` | `['PATH', '/bin:/etc', '/bin', '/etc']` |   
-| **split** - splitting text<br> by white spaces. | `Split  me \n now!` | `['Split', 'me', 'now!']` |   
-| **strip** - extract from<br> special charecters. | `{Hello} "world"` | `['Hello', 'world']` |   
+| Tokenizer  | Text  | Tokens |
+| ---------- | ----- | ------ |
+| **dict**   | `{"key": "val as str"}` | `['key', 'val as str']` |
+| **env**    | `PATH=/bin:/etc` | `['PATH', '/bin:/etc', '/bin', '/etc']` |   
+| **split**  | `Split  me \n now!` | `['Split', 'me', 'now!']` |   
+| **strip**  | `{Hello} "world"` | `['Hello', 'world']` |   
 
 You can create your tokenizer and add it to `tokenizers_all` in `tokenize_output.py`.  
 
