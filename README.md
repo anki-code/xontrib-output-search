@@ -91,26 +91,19 @@ $ curl http://127.0.0.1:4242
 ## Development
 
 ### Tokenizers
-Tokenizers are functions which extract tokens from the output. You can create your tokenizer and add it to `_tokenizers`.
+Tokenizer is a functions which extract tokens from the text.
 
-Current tokenizers: 
-* **dict** -  extract keys and values from python dict or json. 
- 
-  Example: `{"key": "val as str"}` tokens `['key', 'val as str']`.
-  
-* **env** - extract name and values from env-like text. 
+| Tokenizer | Text  | Tokens |
+| --------- | ----- | ------ |
+| **dict** - extract from<br> python dict or json. | `{"key": "val as str"}` | `['key', 'val as str']` |
+| **env** - extract from<br> env-like text. | `PATH=/bin:/etc` | `['PATH', '/bin:/etc', '/bin', '/etc']` |   
+| **split** - splitting text<br> by white spaces. | `Split  me \n now!` | `['Split', 'me', 'now!']` |   
+| **strip** - extract from<br> special charecters. | `{Hello} "world"` | `['Hello', 'world']` |   
 
-  Example: `PATH=/bin:/etc` tokens `['PATH', '/bin:/etc', '/bin', '/etc']`.
-  
-* **split** - splitting text by white spaces (space, tab, new line). 
-  
-  Example: `Split  me \n now!` tokens `['Split', 'me', 'now!']`.
-  
-* **strip** - extract values from special charecters. 
+You can create your tokenizer and add it to `tokenizers_all` in `tokenize_output.py`.  
 
-  Example: `{Hello} "world"` tokens `['Hello', 'world']`.
-
-### Clone and test
+### Test and debug
+Run tests:
 ```shell script
 cd ~
 git clone https://github.com/anki-code/xontrib-output-search
@@ -119,7 +112,15 @@ pytest
 ```
 To debug the tokenizer:
 ```shell script
-echo "Hello world" | python tokenizer_outupt.py --pipe
+echo "Hello world" | python tokenize_outupt.py --pipe
+```
+Check that `output_search` loaded:
+```shell script
+$ xontrib list output_search
+output_search  installed  loaded
+
+$ completer list
+xontrib_output_search
 ```
 
 ## Known issues
