@@ -2,6 +2,7 @@
 
 import re
 import json
+import demjson
 import ast
 import logging
 from collections.abc import Iterable
@@ -98,28 +99,35 @@ def tokenizer_dict(text, text_cmd='', substring='', current_cmd={}):
     tokens = {'final': set(), 'new': set()}
     if len(text) < 6:
         return tokens
+    if text[:1]+text[-1:] not in ['{}', '[]']:
+        return tokens
 
-    if text[:1]+text[-1:] in ['{}', '[]']:
-        dct = None
-        try:
-            dct = json.loads(text)
+    dct = None
+    try:  # JSON
+        dct = json.loads(text)
+    except:
+        pass
+
+    if dct is None:
+        try:  # Python dict
+            dct = ast.literal_eval(text)
         except:
             pass
 
-        if dct is None:
-            try:
-                dct = ast.literal_eval(text)
-            except:
-                pass
+    if dct is None:
+        try:  # JavaScript Object
+            dct = demjson.decode(text)
+        except:
+            pass
 
-        if dct is not None:
-            dct_tokens = dict_keys_values(dct)
-            values = list_str(dct_tokens['values'])
-            tokens = {
-                'final': set(list_str(dct_tokens['keys']) + values),
-                'new': set(values)
-            }
-            return tokens
+    if dct is not None:
+        dct_tokens = dict_keys_values(dct)
+        values = list_str(dct_tokens['values'])
+        tokens = {
+            'final': set(list_str(dct_tokens['keys']) + values),
+            'new': set(values)
+        }
+        return tokens
 
     return tokens
 
