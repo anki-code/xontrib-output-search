@@ -16,6 +16,11 @@ setup(
     description="Get identifiers, names, paths, URLs and words from the previous command output and use them for the next command in xonsh.",
     long_description=long_description,
     long_description_content_type='text/markdown',
+    python_requires='>=3.6',
+    install_requires=[
+        'xonsh',
+        'demjson'
+    ],
     packages=['xontrib'],
     package_dir={'xontrib': 'xontrib'},
     package_data={'xontrib': ['output_search/*.py']},
