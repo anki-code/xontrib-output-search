@@ -6,13 +6,19 @@ import ast
 import logging
 from collections.abc import Iterable
 
-def filter_tokens(tokens, substring='', len_min=1):
+def filter_tokens(tokens, substring='', len_min=2):
     substring_lower = substring.lower()
-    return {
-        'final': set([t for t in tokens['final'] if len(t) > len_min and substring_lower in t.lower()]),
-        'new': set([t for t in tokens['new'] if len(t) > len_min and substring_lower in t.lower()])
-    }
-
+    result = []
+    for t in tokens:
+        len_t = len(t)
+        if len_t <= len_min:
+            continue
+        if substring_lower not in t.lower():
+            continue
+        if len(set(t)) <= 2:  # Skip tokens with repeated characters: "---------"
+            continue
+        result.append(t)
+    return set(result)
 
 framed_regexp = re.compile(r'^["\'({\[,:;]*(.+?)[,})\]"\':;]*$')
 def tokenizer_strip(text, text_cmd='', substring='', current_cmd={}):
@@ -137,7 +143,10 @@ def tokenize_output(text, text_cmd='', substring='', current_cmd={}, tokenizers=
         tokens = tokenizer(text, text_cmd=text_cmd, substring=substring, current_cmd=current_cmd)
         if len(tokens['final']) > 0 or len(tokens['new']) > 0:
             found_tokens = True
-        tokens = filter_tokens(tokens, substring)
+        tokens = {
+            'final': filter_tokens(tokens['final'], substring),
+            'new': filter_tokens(tokens['new'], substring)
+        }
         logging.debug(f"{recursion_level_num}{spacing*2}{tokenizer_name} {tokens}")
         result_tokens += list(tokens['final'])
         if len(tokens['new']) > 0:
