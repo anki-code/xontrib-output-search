@@ -53,7 +53,7 @@ $ git clone xx<Alt+F>
 $ git clone https://github.com/xxh/xxh
 ```
 
-#### JSON and Python dict tokenizing
+#### JSON, Python dict and JavaScript object tokenizing
 ```shell script
 $ echo '{"Try": "xontrib-output-search"}'
 {"Try": "xontrib-output-search"}
