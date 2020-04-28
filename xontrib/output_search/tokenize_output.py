@@ -12,11 +12,11 @@ def filter_tokens(tokens, substring='', len_min=2):
     result = []
     for t in tokens:
         len_t = len(t)
-        if len_t <= len_min:
+        if len_t <= len_min:  # Skip short tokens
             continue
-        if substring_lower not in t.lower():
+        if len(set(t)) <= 2:  # Skip tokens with repeated characters ('+-+-+')
             continue
-        if len(set(t)) <= 2:  # Skip tokens with repeated characters: "---------"
+        if substring_lower not in t.lower():  # Skip by substring
             continue
         result.append(t)
     return set(result)

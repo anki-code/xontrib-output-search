@@ -38,7 +38,7 @@ After `xontrib load output_search` you have two ways to select tokens from lates
 * Type `f__` and press <kbd>Tab</kbd> key  
 
 ## Features
-#### Word tokenizing
+#### Words tokenizing
 ```shell script
 $ echo "Hello world"
 Hello world
