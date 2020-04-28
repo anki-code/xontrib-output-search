@@ -36,10 +36,15 @@ def test_tokenize_env_substrig():
 
 
 def test_tokenize_json():
-    assert tokenize_output_sorted('{"Hello": "hello world"}') == ['Hello', 'hello', 'hello world', 'world']
+    assert tokenize_output_sorted('{"Hello": "hello world", "test": None}') == ['Hello', 'hello', 'hello world', 'test', 'world']
 
 def test_tokenize_json_partial():
     assert tokenize_output_sorted('"test": "1",') == ['test']
+
+
+def test_tokenize_javascript():
+    assert tokenize_output_sorted("{Hello: 'hello world', test:null}") == ['Hello', 'hello', 'hello world', 'test', 'world']
+
 
 def test_tokenize_complex():
     assert tokenize_output_sorted('one "two" Three=four {"qwe":"hello world"}') == ['Three', 'four', 'hello', 'one', 'qwe', 'two', 'world']
