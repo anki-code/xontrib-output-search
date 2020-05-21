@@ -3,9 +3,11 @@
 import re
 from xontrib.output_search.tokenize_output import tokenize_output
 
-output_search_prefix = 'i__'
-add_previous_cmd_to_output = True
-support_special_chars_in_prefix = True
+_key = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY', 'f')
+
+_output_search_prefix = _key + '__'
+_add_previous_cmd_to_output = True
+_support_special_chars_in_prefix = True
 
 def prev_special_char_pos(s, chars=':;+-_~=/\\{[(<>|#"\'^$%&?!.,'):
     for i in reversed(range(0, len(s))):
@@ -19,9 +21,9 @@ __xonsh__.xontrib_output_search_previous_output = None
 
 def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
     """
-    Get new arguments from previous command output use Alt+F hotkey or i__ prefix before tab key.
+    Get new arguments from previous command output use Alt+F hotkey or f__ prefix before tab key.
     """
-    is_output_search_prefix = prefix.startswith(output_search_prefix)
+    is_output_search_prefix = prefix.startswith(_output_search_prefix)
     if __xonsh__.xontrib_output_search_completion or is_output_search_prefix:
         __xonsh__.xontrib_output_search_completion = False
         current_cmd = {'prefix': prefix, 'line': line, 'begidx': begidx, 'endidx': endidx}
@@ -29,19 +31,19 @@ def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
         if 'output' in prev:
             cmd = prev['cmd']
             output = prev['output']
-            substring = prefix[len(output_search_prefix):] if is_output_search_prefix else prefix
+            substring = prefix[len(_output_search_prefix):] if is_output_search_prefix else prefix
             tokens = tokenize_output(text=output, text_cmd=cmd, substring=substring, current_cmd=current_cmd)
-            if add_previous_cmd_to_output:
+            if _add_previous_cmd_to_output:
                 tokens = set.union(tokens, tokenize_output(text=cmd, text_cmd=cmd, substring=substring, current_cmd=current_cmd))
 
-            if support_special_chars_in_prefix and tokens == set() and not is_output_search_prefix:
+            if _support_special_chars_in_prefix and tokens == set() and not is_output_search_prefix:
                 sc_pos = prev_special_char_pos(prefix)
                 if sc_pos is not None:
                     prefix_after_char = prefix[sc_pos + 1:]
                     prefix_before_char = prefix[:sc_pos + 1]
-                    if prefix_before_char != output_search_prefix:
+                    if prefix_before_char != _output_search_prefix:
                         tokens = tokenize_output(text=output, text_cmd=cmd, substring=prefix_after_char, current_cmd=current_cmd)
-                        if add_previous_cmd_to_output:
+                        if _add_previous_cmd_to_output:
                             tokens = set.union(tokens, tokenize_output(text=cmd, text_cmd=cmd, substring=prefix, current_cmd=current_cmd))
                         tokens = set([prefix_before_char + t for t in tokens])
 
@@ -52,13 +54,13 @@ def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
 __xonsh__.completers['xontrib_output_search'] = _xontrib_output_search_completer
 __xonsh__.completers.move_to_end('xontrib_output_search', last=False)
 
-color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
+_color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
 @events.on_postcommand
 def _save_output(cmd: str, rtn: int, out: str or None, ts: list):
     if out is not None:
         out = out.strip()
         if out:
-            __xonsh__.xontrib_output_search_previous_output = {'output': color_regexp.sub('', out), 'cmd': cmd}
+            __xonsh__.xontrib_output_search_previous_output = {'output': _color_regexp.sub('', out), 'cmd': cmd}
 
 try:
     @events.on_ptk_create
@@ -68,7 +70,7 @@ try:
         else:
             handler = bindings.registry.add_binding
 
-        @bindings.add('escape', 'i')
+        @bindings.add('escape', _key)
         def _(event):
             if __xonsh__.xontrib_output_search_previous_output is not None:
                 __xonsh__.xontrib_output_search_completion=True
