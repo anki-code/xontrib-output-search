@@ -136,7 +136,7 @@ xontrib_output_search
 
 ## Known issues
 #### `cat file` is not captured
-Workaround: `cat file | head`.
+Workaround: `cat file | head` or `cat file | grep text`.
 
 #### Alt+F combination may not working in PyCharm terminal
 Workaround: `f__` + <kbd>Tab</kbd>.
