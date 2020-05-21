@@ -37,7 +37,7 @@ After `xontrib load output_search` you have two ways to select tokens from lates
 * Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkeys
 * Type `f__` and press <kbd>Tab</kbd> key  
 
-If you you this key combination for another function and your muscle memory is strong just change the key before loading the xontrib:
+If you use this key combination for another function and your muscle memory is strong just change the key before loading the xontrib:
 ```
 $XONTRIB_OUTPUT_SEARCH_KEY='i'
 xontrib load output_search
