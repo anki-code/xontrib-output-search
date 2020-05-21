@@ -3,7 +3,7 @@
 import re
 from xontrib.output_search.tokenize_output import tokenize_output
 
-output_search_prefix = 'f__'
+output_search_prefix = 'i__'
 add_previous_cmd_to_output = True
 support_special_chars_in_prefix = True
 
@@ -19,7 +19,7 @@ __xonsh__.xontrib_output_search_previous_output = None
 
 def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
     """
-    Get new arguments from previous command output use Alt+F hotkey or f__ prefix before tab key.
+    Get new arguments from previous command output use Alt+F hotkey or i__ prefix before tab key.
     """
     is_output_search_prefix = prefix.startswith(output_search_prefix)
     if __xonsh__.xontrib_output_search_completion or is_output_search_prefix:
@@ -68,7 +68,7 @@ try:
         else:
             handler = bindings.registry.add_binding
 
-        @bindings.add('escape', 'f')
+        @bindings.add('escape', 'i')
         def _(event):
             if __xonsh__.xontrib_output_search_previous_output is not None:
                 __xonsh__.xontrib_output_search_completion=True
