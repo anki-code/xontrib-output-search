@@ -141,5 +141,8 @@ Workaround: `cat file | head`.
 #### Alt+F combination may not working in PyCharm terminal
 Workaround: `f__` + <kbd>Tab</kbd>.
 
+#### The Alt+F in the readline is to move forward
+Workaround: set `$XONTRIB_OUTPUT_SEARCH_KEY='i'` before `xontrib load output_search`.
+
 ## Thanks
 I was inspired by [xontrib-histcpy](https://github.com/con-f-use/xontrib-histcpy). Thanks @con-f-use!
