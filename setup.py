@@ -9,7 +9,7 @@ except (IOError, OSError):
 
 setup(
     name='xontrib-output-search',
-    version='0.4.1',
+    version='0.5.0',
     license='BSD',
     author='anki',
     author_email='author@example.com',
@@ -17,9 +17,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     python_requires='>=3.6',
-    install_requires=[
-        'demjson'
-    ],
+    install_requires=['tokenize-output'],
     packages=['xontrib'],
     package_dir={'xontrib': 'xontrib'},
     package_data={'xontrib': ['output_search/*.py']},

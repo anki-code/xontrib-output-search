@@ -1,7 +1,7 @@
 #!/usr/bin/env xonsh
 
 import re
-from xontrib.output_search.tokenize_output import tokenize_output
+from tokenize_output.tokenize_output import tokenize_output
 
 _key = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY', 'f')
 

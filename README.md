@@ -43,15 +43,8 @@ $XONTRIB_OUTPUT_SEARCH_KEY='i'
 xontrib load output_search
 ```
 
-## Features
-#### Words tokenizing
-```shell script
-$ echo "Hello world"
-Hello world
-$ echo The second word is wo<Alt+F>
-$ echo The second word is world
-```
-URL example:
+## Use cases
+#### Get URL from output
 ```shell script
 $ echo "Try https://github.com/xxh/xxh"
 Try https://github.com/xxh/xxh
@@ -59,7 +52,7 @@ $ git clone xx<Alt+F>
 $ git clone https://github.com/xxh/xxh
 ```
 
-#### JSON, Python dict and JavaScript object tokenizing
+#### Get key or value from JSON, Python dict and JavaScript object
 ```shell script
 $ echo '{"Try": "xontrib-output-search"}'
 {"Try": "xontrib-output-search"}
@@ -67,7 +60,7 @@ $ echo I should try se<Alt+F>
 $ echo I should try xontrib-output-search
 ```    
 
-#### env tokenizing
+#### Get the path from environment
 ```shell script
 $ env | grep ^PATH=
 PATH=/one/two:/three/four
@@ -75,7 +68,7 @@ $ ls fo<Alt+F>
 $ ls /three/four
 ```    
 
-#### Complex prefixes autocomplete
+#### Complete the complex prefix
 
 Get the URL from previous output after typing `git+`:
 ```shell script
@@ -94,38 +87,18 @@ $ curl http://127.0.0.1:4<Alt+F>
 $ curl http://127.0.0.1:4242
 ```
 
+#### Get arguments from command help
+```shell script
+$ lolcat -h
+...
+$ lolcat --s<Alt+F>
+$ lolcat --seed=SEED
+```
 ## Development
 
-### Tokenizers
-Tokenizer is a functions which extract tokens from the text.
+The xontrib-output-search is using [tokenize-output](https://github.com/tokenizer/tokenize-output) for tokenizing.
 
-| Priority | Tokenizer  | Text  | Tokens |
-| ---------| ---------- | ----- | ------ |
-| 1        | **dict**   | `{"key": "val as str"}` | `['key', 'val as str']` |
-| 2        | **env**    | `PATH=/bin:/etc` | `['PATH', '/bin:/etc', '/bin', '/etc']` |   
-| 3        | **split**  | `Split  me \n now!` | `['Split', 'me', 'now!']` |   
-| 4        | **strip**  | `{Hello}` | `['Hello']` |   
-
-You can create your tokenizer and add it to `tokenizers_all` in `tokenize_output.py`.
-
-Tokenizing is a recursive process where every tokenizer returns `final` and `new` tokens. 
-The `final` tokens directly go to the result list of tokens. The `new` tokens go to all 
-tokenizers again to find new tokens. As result if there is a mix of json and env data 
-in the output it will be found and tokenized in appropriate way.  
-
-### Test and debug
-Run tests:
-```shell script
-cd ~
-git clone https://github.com/anki-code/xontrib-output-search
-cd xontrib-output-search
-pytest
-```
-To debug the tokenizer:
-```shell script
-echo "Hello world" | python tokenize_outupt.py --pipe
-```
-Check that `output_search` loaded:
+Checking that `output_search` xontrib has been loaded:
 ```shell script
 $ xontrib list output_search
 output_search  installed  loaded
