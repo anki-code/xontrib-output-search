@@ -108,7 +108,7 @@ xontrib_output_search
 ```
 
 ## Known issues
-#### `cat file` is not captured
+#### `cat file` is not captured ([xonsh/issues/3744](https://github.com/xonsh/xonsh/issues/3744))
 Workaround: `cat file | head` or `cat file | grep text`.
 
 #### Alt+F combination may not working in PyCharm terminal
