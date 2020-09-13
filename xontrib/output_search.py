@@ -56,7 +56,7 @@ __xonsh__.completers.move_to_end('xontrib_output_search', last=False)
 
 _color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
 @events.on_postcommand
-def _save_output(cmd: str, rtn: int, out: str or None, ts: list):
+def _save_output(cmd: str, rtn: int, out: str or None, ts: list, **kwargs):
     if out is not None:
         out = out.strip()
         if out:
