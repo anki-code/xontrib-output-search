@@ -4,10 +4,10 @@ import re
 from tokenize_output.tokenize_output import tokenize_output
 
 _key = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY', 'f')
-
-_output_search_prefix = _key + '__'
 _add_previous_cmd_to_output = True
 _support_special_chars_in_prefix = True
+
+_output_search_prefix = _key + '__'
 
 def prev_special_char_pos(s, chars=':;+-_~=/\\{[(<>|#"\'^$%&?!.,'):
     for i in reversed(range(0, len(s))):
