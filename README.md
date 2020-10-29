@@ -37,9 +37,16 @@ After `xontrib load output_search` you have two ways to select tokens from lates
 * Press <kbd>Alt</kbd> + <kbd>F</kbd> hotkeys
 * Type `f__` and press <kbd>Tab</kbd> key  
 
-If you use this key combination for another function and your muscle memory is strong just change the key before loading the xontrib:
-```
+If you use this key combination for another function and your muscle memory is strong just change 
+the [key combination](https://python-prompt-toolkit.readthedocs.io/en/master/pages/advanced_topics/key_bindings.html) before 
+loading the xontrib:
+```python
+# Alt+i combination
 $XONTRIB_OUTPUT_SEARCH_KEY='i'
+xontrib load output_search
+
+# Control+g combination
+$XONTRIB_OUTPUT_SEARCH_KEY_BINDING='c-g'
 xontrib load output_search
 ```
 
@@ -65,7 +72,7 @@ $ echo I should try xontrib-output-search
 $ env | grep ^PATH=
 PATH=/one/two:/three/four
 $ ls fo<Alt+F>
-$ ls /three/four
+$ ls /three/four  
 ```    
 
 #### Complete the complex prefix

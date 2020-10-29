@@ -3,7 +3,9 @@
 import re
 from tokenize_output.tokenize_output import tokenize_output
 
+_key_meta = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_META', 'escape')
 _key = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY', 'f')
+_key_binding = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_BINDING', None)
 _add_previous_cmd_to_output = True
 _support_special_chars_in_prefix = True
 
@@ -70,7 +72,9 @@ try:
         else:
             handler = bindings.registry.add_binding
 
-        @bindings.add('escape', _key)
+        bind = (_key_binding,) if _key_binding else (_key_meta, _key)
+
+        @bindings.add(*bind)
         def _(event):
             if __xonsh__.xontrib_output_search_previous_output is not None:
                 __xonsh__.xontrib_output_search_completion=True
