@@ -41,12 +41,19 @@ If you use this key combination for another function and your muscle memory is s
 the [key combination](https://python-prompt-toolkit.readthedocs.io/en/master/pages/advanced_topics/key_bindings.html) before 
 loading the xontrib:
 ```python
-# Alt+i combination
+# Alt+i combination. Meaning: @bindings.add('escape', 'i')
 $XONTRIB_OUTPUT_SEARCH_KEY='i'
 xontrib load output_search
-
-# Control+g combination
+```
+```python
+# Control+g combination. Meaning: @bindings.add('c-g')
 $XONTRIB_OUTPUT_SEARCH_KEY_BINDING='c-g'
+xontrib load output_search
+```
+```python
+# Right+Left combination. Meaning: @bindings.add('right', 'left')
+$XONTRIB_OUTPUT_SEARCH_KEY_META='right'
+$XONTRIB_OUTPUT_SEARCH_KEY='left'  # text placeholder will be `left__`
 xontrib load output_search
 ```
 
