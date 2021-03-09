@@ -60,53 +60,53 @@ xontrib load output_search
 ## Use cases
 #### Get URL from output
 ```shell script
-$ echo "Try https://github.com/xxh/xxh"
-Try https://github.com/xxh/xxh
-$ git clone xx<Alt+F>
-$ git clone https://github.com/xxh/xxh
+echo "Try https://github.com/xxh/xxh"
+# Try https://github.com/xxh/xxh
+git clone xx<Alt+F>
+git clone https://github.com/xxh/xxh
 ```
 
 #### Get key or value from JSON, Python dict and JavaScript object
 ```shell script
-$ echo '{"Try": "xontrib-output-search"}'
-{"Try": "xontrib-output-search"}
-$ echo I should try se<Alt+F>
-$ echo I should try xontrib-output-search
+echo '{"Try": "xontrib-output-search"}'
+# {"Try": "xontrib-output-search"}
+echo I should try se<Alt+F>
+echo I should try xontrib-output-search
 ```    
 
 #### Get the path from environment
 ```shell script
-$ env | grep ^PATH=
-PATH=/one/two:/three/four
-$ ls fo<Alt+F>
-$ ls /three/four  
+env | grep ^PATH=
+# PATH=/one/two:/three/four
+ls fo<Alt+F>
+ls /three/four  
 ```    
 
 #### Complete the complex prefix
 
 Get the URL from previous output after typing `git+`:
 ```shell script
-$ echo "Try https://github.com/tokenizer/xontrib-output-search"
-Try https://github.com/tokenizer/xontrib-output-search
+echo "Try https://github.com/tokenizer/xontrib-output-search"
+# Try https://github.com/tokenizer/xontrib-output-search
 
-$ pip install git+xo<Alt+F>
-$ pip install git+https://github.com/tokenizer/xontrib-output-search
+pip install git+xo<Alt+F>
+pip install git+https://github.com/tokenizer/xontrib-output-search
 ```
 Get the port number from previous output while typing the URL:
 ```shell script
-$ echo "The port number is 4242"
-The port number is 4242
+echo "The port number is 4242"
+# The port number is 4242
 
-$ curl http://127.0.0.1:4<Alt+F>
-$ curl http://127.0.0.1:4242
+curl http://127.0.0.1:4<Alt+F>
+curl http://127.0.0.1:4242
 ```
 
 #### Get arguments from command help
 ```shell script
-$ lolcat -h
+lolcat -h
 ...
-$ lolcat --s<Alt+F>
-$ lolcat --seed=SEED
+lolcat --s<Alt+F>
+lolcat --seed=SEED
 ```
 ## Development
 
@@ -114,11 +114,11 @@ The xontrib-output-search is using [tokenize-output](https://github.com/tokenize
 
 Checking that `output_search` xontrib has been loaded:
 ```shell script
-$ xontrib list output_search
-output_search  installed  loaded
+xontrib list output_search
+# output_search  installed  loaded
 
-$ completer list | grep output_search
-xontrib_output_search
+completer list | grep output_search
+# xontrib_output_search
 ```
 
 ## Known issues
