@@ -22,7 +22,7 @@ Get identifiers, names, paths, URLs and words from the previous command output a
 </table>
 
 <p align="center">  
-If you like the idea click ⭐ on the repo and stay tuned by watching releases.
+If you like the idea click ⭐ on the repo and and <a href="https://twitter.com/intent/tweet?text=Nice%20xontrib%20for%20the%20xonsh%20shell!&url=https://github.com/tokenizer/xontrib-output-search" target="_blank">tweet</a>.
 </p>
 
 ## Install
