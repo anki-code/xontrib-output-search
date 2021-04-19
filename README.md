@@ -122,11 +122,16 @@ completer list | grep output_search
 ```
 
 ## Known issues
+
 #### `cat file` is not captured ([xonsh/issues/3744](https://github.com/xonsh/xonsh/issues/3744))
 Workaround: `cat file | head` or `cat file | grep text`.
 
 #### Alt+F combination may not working in PyCharm terminal
 Workaround: `f__` + <kbd>Tab</kbd>.
+
+#### The readline shell type was not tested
+
+We're using the xonsh recommended prompt-toolkit shell type to test the output search xontrib. There could be the issues in the readline shell type. PRs are welcome!
 
 #### The Alt+F in the readline is to move forward
 Workaround: set `$XONTRIB_OUTPUT_SEARCH_KEY='i'` before `xontrib load output_search`.
