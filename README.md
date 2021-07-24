@@ -123,6 +123,10 @@ completer list | grep output_search
 
 ## Known issues
 
+#### Not working after [xonsh 0.10.0](https://github.com/xonsh/xonsh/releases/tag/0.10.0) ([4283](https://github.com/xonsh/xonsh/pull/4283))
+
+Workaround: Check `XONSH_CAPTURE_ALWAYS` environment variable to bring the capturing of the output back. 
+
 #### `cat file` is not captured ([xonsh/issues/3744](https://github.com/xonsh/xonsh/issues/3744))
 Workaround: `cat file | head` or `cat file | grep text`.
 
