@@ -140,6 +140,10 @@ We're using the xonsh recommended prompt-toolkit shell type to test the output s
 #### The Alt+F in the readline is to move forward
 Workaround: set `$XONTRIB_OUTPUT_SEARCH_KEY='i'` before `xontrib load output_search`.
 
+#### tmux
+
+In [tmux](https://en.wikipedia.org/wiki/Tmux) there is [the fallback in case the output of last cmd is not available](https://github.com/tokenizer/xontrib-output-search/pull/4).
+
 ## Links 
 * This package is the part of [ergopack](https://github.com/anki-code/xontrib-ergopack) - the pack of ergonomic xontribs.
 * This package was created with [xontrib cookiecutter template](https://github.com/xonsh/xontrib-cookiecutter).
