@@ -1,6 +1,6 @@
 #!/usr/bin/env xonsh
 
-import re
+import re, subprocess
 from tokenize_output.tokenize_output import tokenize_output
 
 _key_meta = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_META', 'escape')
@@ -56,9 +56,19 @@ def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
 __xonsh__.completers['xontrib_output_search'] = _xontrib_output_search_completer
 __xonsh__.completers.move_to_end('xontrib_output_search', last=False)
 
+def _tmux_current_pane_contents():
+    if not "TMUX" in __xonsh__.env:
+        return None
+    else:
+        try:
+            return subprocess.check_output(["tmux", "capture-pane", "-p"], timeout=1).decode()
+        except:
+            return None
+
 _color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
 @events.on_postcommand
 def _save_output(cmd: str, rtn: int, out: str or None, ts: list, **kwargs):
+    out = out or _tmux_current_pane_contents()
     if out is not None:
         out = out.strip()
         if out:
