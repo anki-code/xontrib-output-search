@@ -27,7 +27,7 @@ If you like the idea click ⭐ on the repo and and <a href="https://twitter.com/
 
 ## Note! 
 
-After release [xonsh 0.10.0](https://github.com/xonsh/xonsh/releases/tag/0.10.0) ([4283](https://github.com/xonsh/xonsh/pull/4283)) you should set [`$XONSH_CAPTURE_ALWAYS=True`](https://xon.sh/envvars.html#xonsh-capture-always) in your `~/.xonshrc` to use xontrib-output-search. Be aware that after switching on the capturing you can catch some issues around capturable tools ([4283](https://github.com/xonsh/xonsh/pull/4283)).
+After release [xonsh 0.10.0](https://github.com/xonsh/xonsh/releases/tag/0.10.0) ([4283](https://github.com/xonsh/xonsh/pull/4283)) you should set [`$XONSH_CAPTURE_ALWAYS=True`](https://xon.sh/envvars.html#xonsh-capture-always) in your `~/.xonshrc` to use xontrib-output-search. Be aware that after this you can catch some issues around capturable tools ([4283](https://github.com/xonsh/xonsh/pull/4283)).
 
 ## Install
 ```shell script
