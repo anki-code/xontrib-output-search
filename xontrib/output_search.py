@@ -9,6 +9,12 @@ if not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False):
 _key_meta = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_META', 'escape')
 _key = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY', 'f')
 _key_binding = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_BINDING', None)
+
+if _key_binding is None and _key_meta == 'escape' and _key == 'f':
+    from xonsh.platform import ON_DARWIN
+    if ON_DARWIN:
+        _key_binding_default = 'c-f'
+
 _add_previous_cmd_to_output = True
 _support_special_chars_in_prefix = True
 
