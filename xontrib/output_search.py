@@ -3,6 +3,9 @@
 import re, subprocess
 from tokenize_output.tokenize_output import tokenize_output
 
+if not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False):
+    print('xontrib-output-search: Please read https://github.com/tokenizer/xontrib-output-search#note')
+
 _key_meta = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_META', 'escape')
 _key = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY', 'f')
 _key_binding = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_BINDING', None)
@@ -30,7 +33,7 @@ def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
         __xonsh__.xontrib_output_search_completion = False
         current_cmd = {'prefix': prefix, 'line': line, 'begidx': begidx, 'endidx': endidx}
         prev = __xonsh__.xontrib_output_search_previous_output
-        if 'output' in prev:
+        if prev and 'output' in prev:
             cmd = prev['cmd']
             output = prev['output']
             substring = prefix[len(_output_search_prefix):] if is_output_search_prefix else prefix
