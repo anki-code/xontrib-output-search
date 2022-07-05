@@ -9,7 +9,7 @@ except (IOError, OSError):
 
 setup(
     name='xontrib-output-search',
-    version='0.6.0',
+    version='0.6.1',
     license='BSD',
     author='anki-code',
     author_email='author@example.com',
@@ -22,11 +22,11 @@ setup(
     package_dir={'xontrib': 'xontrib'},
     package_data={'xontrib': ['output_search/*.py']},
     platforms='any',
-    url='https://github.com/tokenizer/xontrib-output-search',
+    url='https://github.com/anki-code/xontrib-output-search',
     project_urls={
-        "Documentation": "https://github.com/tokenizer/xontrib-output-search/blob/master/README.md",
-        "Code": "https://github.com/tokenizer/xontrib-output-search",
-        "Issue tracker": "https://github.com/tokenizer/xontrib-output-search/issues",
+        "Documentation": "https://github.com/anki-code/xontrib-output-search/blob/master/README.md",
+        "Code": "https://github.com/anki-code/xontrib-output-search",
+        "Issue tracker": "https://github.com/anki-code/xontrib-output-search/issues",
     },
     classifiers=[
         'Environment :: Console',
