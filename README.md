@@ -1,5 +1,7 @@
 <p align="center">
 Get identifiers, names, paths, URLs and words from the previous command output and use them for the next command in <a href="https://xon.sh">xonsh</a>.
+<br><br>
+<img src="https://repository-images.githubusercontent.com/257978984/a0eaac80-0424-11eb-85ad-29809d2f792d">
 </p>
 
 <table width="100%">
