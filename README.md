@@ -40,8 +40,9 @@ echo 'xontrib load output_search' >> ~/.xonshrc
 
 ## Usage
 After `xontrib load output_search` you have two ways to select tokens from latest not empty output:
-* Press <kbd>Alt</kbd> + <kbd>f</kbd> hotkeys on Windows/Linux or <kbd>Control</kbd> + <kbd>f</kbd> on Mac
-* Type `f__` and press <kbd>Tab</kbd> key  
+* Windows/Linux: Press <kbd>Alt</kbd> + <kbd>f</kbd> hotkeys after getting the output of the previous command 
+* Mac: Press <kbd>Control</kbd> + <kbd>f</kbd> hotkeys after getting the output of the previous command
+* Any OS: Type `f__` or `f__<beginning of the word you want>` and press <kbd>Tab</kbd>  
 
 If you use this key combination for another function and your muscle memory is strong just change 
 the [key combination](https://python-prompt-toolkit.readthedocs.io/en/master/pages/advanced_topics/key_bindings.html) before 
