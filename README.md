@@ -48,17 +48,20 @@ If you use this key combination for another function and your muscle memory is s
 the [key combination](https://python-prompt-toolkit.readthedocs.io/en/master/pages/advanced_topics/key_bindings.html) before 
 loading the xontrib:
 ```python
-# Alt+i combination. Meaning: @bindings.add('escape', 'i')
+# Alt+i combination. Meaning for prompt-toolkit: @bindings.add('escape', 'i')
 $XONTRIB_OUTPUT_SEARCH_KEY='i'
 xontrib load output_search
 ```
 ```python
-# Control+g combination. Meaning: @bindings.add('c-g')
+# This approach is recommended for Mac users because `c-<key>` is represented 
+# the Control key that has less intersections with other Mac hotkeys. 
+#
+# Control+g combination. Meaning for prompt-toolkit: @bindings.add('c-g')
 $XONTRIB_OUTPUT_SEARCH_KEY_BINDING='c-g'
 xontrib load output_search
 ```
 ```python
-# Right+Left combination. Meaning: @bindings.add('right', 'left')
+# Right+Left combination. Meaning for prompt-toolkit: @bindings.add('right', 'left')
 $XONTRIB_OUTPUT_SEARCH_KEY_META='right'
 $XONTRIB_OUTPUT_SEARCH_KEY='left'       # text placeholder will be `left__`
 xontrib load output_search
