@@ -63,7 +63,7 @@ xontrib load output_search
 ```python
 # Right+Left combination. Meaning for prompt-toolkit: @bindings.add('right', 'left')
 $XONTRIB_OUTPUT_SEARCH_KEY_META='right'
-$XONTRIB_OUTPUT_SEARCH_KEY='left'       # text placeholder will be `left__`
+$XONTRIB_OUTPUT_SEARCH_KEY='left'  # the text placeholder will be `left__`
 xontrib load output_search
 ```
 
