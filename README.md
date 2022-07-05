@@ -22,7 +22,7 @@ Get identifiers, names, paths, URLs and words from the previous command output a
 </table>
 
 <p align="center">  
-If you like the idea click ⭐ on the repo and and <a href="https://twitter.com/intent/tweet?text=Nice%20xontrib%20for%20the%20xonsh%20shell!&url=https://github.com/tokenizer/xontrib-output-search" target="_blank">tweet</a>.
+If you like the idea click ⭐ on the repo and and <a href="https://twitter.com/intent/tweet?text=Nice%20xontrib%20for%20the%20xonsh%20shell!&url=https://github.com/anki-code/xontrib-output-search" target="_blank">tweet</a>.
 </p>
 
 ## Note! 
@@ -61,7 +61,7 @@ $XONTRIB_OUTPUT_SEARCH_KEY='left'       # text placeholder will be `left__`
 xontrib load output_search
 ```
 
-In [tmux](https://en.wikipedia.org/wiki/Tmux) there is [the tmux fallback](https://github.com/tokenizer/xontrib-output-search/pull/4) in case the output of last cmd is not available.
+In [tmux](https://en.wikipedia.org/wiki/Tmux) there is [the tmux fallback](https://github.com/anki-code/xontrib-output-search/pull/4) in case the output of last cmd is not available.
 
 ## Use cases
 #### Get URL from output
@@ -92,11 +92,11 @@ ls /three/four
 
 Get the URL from previous output after typing `git+`:
 ```shell script
-echo "Try https://github.com/tokenizer/xontrib-output-search"
-# Try https://github.com/tokenizer/xontrib-output-search
+echo "Try https://github.com/anki-code/xontrib-output-search"
+# Try https://github.com/anki-code/xontrib-output-search
 
 pip install git+xo<Alt+F>
-pip install git+https://github.com/tokenizer/xontrib-output-search
+pip install git+https://github.com/anki-code/xontrib-output-search
 ```
 Get the port number from previous output while typing the URL:
 ```shell script
@@ -116,7 +116,7 @@ lolcat --seed=SEED
 ```
 ## Development
 
-The xontrib-output-search is using [tokenize-output](https://github.com/tokenizer/tokenize-output) for tokenizing.
+The xontrib-output-search is using [tokenize-output](https://github.com/anki-code/tokenize-output) for tokenizing.
 
 Checking that `output_search` xontrib has been loaded:
 ```shell script
