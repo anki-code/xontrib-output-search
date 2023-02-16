@@ -1,4 +1,4 @@
-#!/usr/bin/env xonsh
+"""Get identifiers, paths, URLs and words from the previous command output and use them for the next command in xonsh shell. """
 
 import re, subprocess
 from tokenize_output.tokenize_output import tokenize_output
