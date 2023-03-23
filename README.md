@@ -27,22 +27,32 @@ Get identifiers, names, paths, URLs and words from the previous command output a
 If you like the idea click ⭐ on the repo and and <a href="https://twitter.com/intent/tweet?text=Nice%20xontrib%20for%20the%20xonsh%20shell!&url=https://github.com/anki-code/xontrib-output-search" target="_blank">tweet</a>.
 </p>
 
-## Note! 
-
-After release [xonsh 0.10.0](https://github.com/xonsh/xonsh/releases/tag/0.10.0) ([4283](https://github.com/xonsh/xonsh/pull/4283)) you should set [`$XONSH_CAPTURE_ALWAYS=True`](https://xon.sh/envvars.html#xonsh-capture-always) in your `~/.xonshrc` to use xontrib-output-search. Be aware that after this you can catch some issues around capturable tools ([4283](https://github.com/xonsh/xonsh/pull/4283)).
-
 ## Install
+
 ```shell script
 xpip install -U xontrib-output-search
-echo 'xontrib load output_search' >> ~/.xonshrc
-# Reload xonsh
 ```
 
+## Before usage
+
+After [xonsh release 0.10.0](https://github.com/xonsh/xonsh/releases/tag/0.10.0) ([4283](https://github.com/xonsh/xonsh/pull/4283)) you should set [`$XONSH_CAPTURE_ALWAYS=True`](https://xon.sh/envvars.html#xonsh-capture-always) in your `~/.xonshrc` to make output capturable. This approach has issues and we decided that the best solution for output search is to use the terminal window managers and we support [tmux](https://en.wikipedia.org/wiki/Tmux). In this case the output will be captured from the screen.
+
+So you have three ways to use output search:
+* Recommended. Use [tmux](https://en.wikipedia.org/wiki/Tmux) to run xonsh and use output search.
+* Not recommended. Set [`$XONSH_CAPTURE_ALWAYS=True`](https://xon.sh/envvars.html#xonsh-capture-always) and be ready to that some tools will freeze because of capturing.
+* Alternative. You can add support any terminal emulator or terminal window manager like tmux that can capture the content of the terminal. PR is welcome!
+
 ## Usage
-After `xontrib load output_search` you have two ways to select tokens from latest not empty output:
-* Windows/Linux: Press <kbd>Alt</kbd> + <kbd>f</kbd> hotkeys after getting the output of the previous command 
-* Mac: Press <kbd>Control</kbd> + <kbd>f</kbd> hotkeys after getting the output of the previous command
-* Any OS: Type `f__` or `f__<beginning of the word you want>` and press <kbd>Tab</kbd>  
+
+```xsh
+tmux new-session xonsh ';' set -g status off  # run xonsh in tmux without bottom status bar
+xontrib load output_search
+```
+
+After loading you can select tokens from latest not empty output:
+* Windows/Linux: Press <kbd>Alt</kbd> + <kbd>f</kbd> hotkeys after getting the output of the previous command.
+* Mac: Press <kbd>Control</kbd> + <kbd>f</kbd> hotkeys after getting the output of the previous command.
+* Any OS: Type `f__` or `f__<beginning of the word you want>` and press <kbd>Tab</kbd>.
 
 If you use this key combination for another function and your muscle memory is strong just change 
 the [key combination](https://python-prompt-toolkit.readthedocs.io/en/master/pages/advanced_topics/key_bindings.html) before 
