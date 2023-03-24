@@ -9,7 +9,7 @@ except (IOError, OSError):
 
 setup(
     name='xontrib-output-search',
-    version='0.6.3',
+    version='0.6.4',
     license='BSD',
     author='anki-code',
     author_email='author@example.com',
