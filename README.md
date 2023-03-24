@@ -39,7 +39,7 @@ After [xonsh release 0.10.0](https://github.com/xonsh/xonsh/releases/tag/0.10.0)
 
 So you have three ways to use output search:
 * Recommended. Use [tmux](https://en.wikipedia.org/wiki/Tmux) to run xonsh and use output search.
-* Not recommended. Set [`$XONSH_CAPTURE_ALWAYS=True`](https://xon.sh/envvars.html#xonsh-capture-always) and be ready some tools will freeze because of capturing.
+* Not recommended. Set [`$XONSH_CAPTURE_ALWAYS=True`](https://xon.sh/envvars.html#xonsh-capture-always) and be ready some tools will freeze because of capturing e.g. `git config --help`.
 * Alternative. You can [add support](https://github.com/anki-code/xontrib-output-search/blob/85a5eea39bb33377e236e0ba8e22b5e055f6bce5/xontrib/output_search.py#L81) any terminal emulator or terminal window manager like tmux that can capture the content of the terminal. PR is welcome!
 
 ## Usage
