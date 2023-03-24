@@ -3,8 +3,8 @@
 import re, subprocess
 from tokenize_output.tokenize_output import tokenize_output
 
-if not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False):
-    print('xontrib-output-search: Please read https://github.com/tokenizer/xontrib-output-search#note')
+if not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False) and not "TMUX" in __xonsh__.env:
+    print('xontrib-output-search: Capturing is not working. Please read https://github.com/tokenizer/xontrib-output-search#note')
 
 _key_meta = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_META', 'escape')
 _key = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY', 'f')
