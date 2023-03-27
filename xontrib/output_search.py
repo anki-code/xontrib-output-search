@@ -2,8 +2,11 @@
 
 import re, subprocess
 from tokenize_output.tokenize_output import tokenize_output
+from pathlib import Path as _Path
 
-if not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False) and not "TMUX" in __xonsh__.env:
+if (not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False) and
+    not "TMUX" in __xonsh__.env and
+    not "ZELLIJ" in __xonsh__.env):
     print('xontrib-output-search: Capturing is not working. Please read https://github.com/tokenizer/xontrib-output-search#note')
 
 _key_meta = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_META', 'escape')
@@ -66,19 +69,26 @@ def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
 __xonsh__.completers['xontrib_output_search'] = _xontrib_output_search_completer
 __xonsh__.completers.move_to_end('xontrib_output_search', last=False)
 
-def _tmux_current_pane_contents():
-    if not "TMUX" in __xonsh__.env:
-        return None
-    else:
+def _multiplexer_current_pane_contents():
+    if "TMUX" in __xonsh__.env:
         try:
             return subprocess.check_output(["tmux", "capture-pane", "-p"], timeout=1).decode()
         except:
             return None
+    if "ZELLIJ" in __xonsh__.env:
+        try:
+            zellij_dump_path: str = __xonsh__.env.get("XONTRIB_OUTPUT_SEARCH_DUMP_LOCATION") or "/tmp/zellidump"
+            subprocess.run(["zellij", "action", "dump-screen", zellij_dump_path], timeout=1)
+            return _Path(zellij_dump_path).read_text()
+        except:
+            return None
+    else:
+        return None
 
 _color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
 @events.on_postcommand
 def _save_output(cmd: str, rtn: int, out: str or None, ts: list, **kwargs):
-    out = out or _tmux_current_pane_contents()
+    out = out or _multiplexer_current_pane_contents()
     if out is not None:
         out = out.strip()
         if out:
