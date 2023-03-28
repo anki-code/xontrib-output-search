@@ -78,8 +78,16 @@ def _multiplexer_current_pane_contents():
     if "ZELLIJ" in __xonsh__.env:
         try:
             zellij_dump_path: str = __xonsh__.env.get("XONTRIB_OUTPUT_SEARCH_DUMP_LOCATION") or "/tmp/zellidump"
-            subprocess.run(["zellij", "action", "dump-screen", zellij_dump_path], timeout=1)
-            return _Path(zellij_dump_path).read_text()
+            dumpcmdlist = [
+              "sh",
+              "-c",
+              f"touch {zellij_dump_path}; "
+              f"chmod 600 {zellij_dump_path}; "
+              f"zellij action dump-screen {zellij_dump_path}; "
+              f"cat {zellij_dump_path}; "
+              f"rm {zellij_dump_path}"
+            ]
+            return subprocess.check_output(dumpcmdlist, timeout=1).decode()
         except:
             return None
     else:
