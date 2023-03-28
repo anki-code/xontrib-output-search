@@ -81,7 +81,7 @@ $XONTRIB_OUTPUT_SEARCH_KEY='left'  # the text placeholder will be `left__`
 xontrib load output_search
 ```
 
-In [tmux](https://en.wikipedia.org/wiki/Tmux) or [zellij](https://zellij.dev/) there is [erminal multiplexer fallback](https://github.com/anki-code/xontrib-output-search/pull/4) in case the output of last cmd is not available.
+In [tmux](https://en.wikipedia.org/wiki/Tmux) or [zellij](https://zellij.dev/) there is [terminal multiplexer fallback](https://github.com/anki-code/xontrib-output-search/pull/4) in case the output of last cmd is not available.
 
 ## Use cases
 #### Get URL from output
