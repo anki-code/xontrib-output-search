@@ -135,7 +135,7 @@ lolcat --s<Alt+F>
 lolcat --seed=SEED
 ```
 
-#### Use tokenize-output as a tool
+#### Use [tokenize-output](https://github.com/anki-code/tokenize-output) as a tool
 
 ```xsh
 $(echo 'Hello "world"!' | tokenize-output -p).split()
