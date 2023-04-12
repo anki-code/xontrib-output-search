@@ -130,10 +130,18 @@ curl http://127.0.0.1:4242
 #### Get arguments from command help
 ```shell script
 lolcat -h
-...
+# ...
 lolcat --s<Alt+F>
 lolcat --seed=SEED
 ```
+
+#### Use tokenize-output as a tool
+
+```xsh
+$(echo 'Hello "world"!' | tokenize-output -p).split()
+# ['Hello', 'world']
+```
+
 ## Development
 
 The xontrib-output-search is using [tokenize-output](https://github.com/anki-code/tokenize-output) for tokenizing.
