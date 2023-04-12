@@ -45,7 +45,9 @@ So you have three ways to use output search:
 ## Usage
 
 ```xsh
-tmux new-session xonsh ';' set -g status off  # run xonsh in tmux without bottom status bar
+zsh
+alias tx="tmux new-session xonsh ';' set -g status off"  # add alias to run xonsh in tmux without bottom status bar
+tx  # run xonsh in tmux
 xontrib load output_search
 ```
 
