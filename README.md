@@ -157,6 +157,12 @@ completer list | grep output_search
 
 ## Known issues
 
+#### `Alt+F` may not working in PyCharm terminal
+Workaround: `f__` + <kbd>Tab</kbd>.
+
+#### `Alt+F` in the readline is to move forward
+Workaround: set `$XONTRIB_OUTPUT_SEARCH_KEY='i'` before `xontrib load output_search`.
+
 #### Not working after [xonsh 0.10.0](https://github.com/xonsh/xonsh/releases/tag/0.10.0) ([4283](https://github.com/xonsh/xonsh/pull/4283))
 
 Workaround: Check [`XONSH_CAPTURE_ALWAYS`](https://xon.sh/envvars.html#xonsh-capture-always) environment variable to bring the capturing of the output back i.e. `$XONSH_CAPTURE_ALWAYS=True`.
@@ -164,15 +170,9 @@ Workaround: Check [`XONSH_CAPTURE_ALWAYS`](https://xon.sh/envvars.html#xonsh-cap
 #### `cat file` is not captured ([xonsh/issues/3744](https://github.com/xonsh/xonsh/issues/3744))
 Workaround: `cat file | head` or `cat file | grep text`.
 
-#### Alt+F combination may not working in PyCharm terminal
-Workaround: `f__` + <kbd>Tab</kbd>.
-
 #### The readline shell type was not tested
 
 We're using the xonsh recommended prompt-toolkit shell type to test the output search xontrib. There could be the issues in the readline shell type. PRs are welcome!
-
-#### The Alt+F in the readline is to move forward
-Workaround: set `$XONTRIB_OUTPUT_SEARCH_KEY='i'` before `xontrib load output_search`.
 
 ## Links 
 * This package is the part of [ergopack](https://github.com/anki-code/xontrib-ergopack) - the pack of ergonomic xontribs.
