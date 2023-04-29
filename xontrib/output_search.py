@@ -81,16 +81,29 @@ def _multiplexer_current_pane_contents():
     if "ZELLIJ" in __xonsh__.env:
         try:
             zellij_dump_path: str = __xonsh__.env.get("XONTRIB_OUTPUT_SEARCH_DUMP_LOCATION") or "/tmp/zellidump"
-            dumpcmdlist = [
-              "sh",
-              "-c",
-              f"touch {zellij_dump_path}; "
-              f"chmod 600 {zellij_dump_path}; "
-              f"zellij action dump-screen {zellij_dump_path}; "
-              f"cat {zellij_dump_path}; "
-              f"rm {zellij_dump_path}"
-            ]
-            return subprocess.check_output(dumpcmdlist, timeout=1).decode()
+            pypath = _Path(zellij_dump_path)
+            try:
+                pypath.write_text("")
+                pypath.chmod(600)
+            except:
+                return None
+
+            try: subprocess.run(["zellij", "action", "dump-screen", zellij_dump_path], timeout=1)
+            except:
+                print("xontrib-output-search: Unable to dump zellij screen")
+                return None
+
+            try:
+                output_str = pypath.read_text()
+            except:
+                print("xontrib-output-search: Unable to read zellij screen dump")
+                return None
+
+            try:
+                pypath.write_text("")
+            except:
+                print("xontrib-output-search: unable to overwrite zellij dump with empty text, security!")
+                return None
         except:
             return None
     if "WEZTERM_PANE" in __xonsh__.env:
