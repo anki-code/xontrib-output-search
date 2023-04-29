@@ -7,7 +7,8 @@ import re as _re
 
 if (not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False) and
     not "TMUX" in __xonsh__.env and
-    not "ZELLIJ" in __xonsh__.env):
+    not "ZELLIJ" in __xonsh__.env and 
+    not "WEZTERM_PANE" in __xonsh__.env):
     print('xontrib-output-search: Capturing is not working. Please read https://github.com/tokenizer/xontrib-output-search#note')
 
 _key_meta = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_META', 'escape')
@@ -92,6 +93,12 @@ def _multiplexer_current_pane_contents():
             return subprocess.check_output(dumpcmdlist, timeout=1).decode()
         except:
             return None
+    if "WEZTERM_PANE" in __xonsh__.env:
+        try:
+            output_str = subprocess.check_output(["wezterm", "cli", "get-text", "--pane-id", __xonsh__.env["WEZTERM_PANE"]], timeout=1).decode()
+        except:
+            return None
+
     if "XONTRIB_OUTPUT_SEARCH_REGEXES" in __xonsh__.env:
         for regex in __xonsh__.env.get("XONTRIB_OUTPUT_SEARCH_REGEXES"):
           if type(regex) is not _re.Pattern:
