@@ -3,6 +3,7 @@
 import re, subprocess
 from tokenize_output.tokenize_output import tokenize_output
 from pathlib import Path as _Path
+import re as _re
 
 if (not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False) and
     not "TMUX" in __xonsh__.env and
@@ -70,9 +71,10 @@ __xonsh__.completers['xontrib_output_search'] = _xontrib_output_search_completer
 __xonsh__.completers.move_to_end('xontrib_output_search', last=False)
 
 def _multiplexer_current_pane_contents():
+    output_str = ""
     if "TMUX" in __xonsh__.env:
         try:
-            return subprocess.check_output(["tmux", "capture-pane", "-p"], timeout=1).decode()
+            output_str = subprocess.check_output(["tmux", "capture-pane", "-p"], timeout=1).decode()
         except:
             return None
     if "ZELLIJ" in __xonsh__.env:
@@ -90,8 +92,15 @@ def _multiplexer_current_pane_contents():
             return subprocess.check_output(dumpcmdlist, timeout=1).decode()
         except:
             return None
-    else:
-        return None
+    if "XONTRIB_OUTPUT_SEARCH_REGEXES" in __xonsh__.env:
+        for regex in __xonsh__.env.get("XONTRIB_OUTPUT_SEARCH_REGEXES"):
+          if type(regex) is not _re.Pattern:
+              continue
+
+          output_str = regex.sub("", output_str)
+
+
+    return output_str
 
 _color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
 @events.on_postcommand
