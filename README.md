@@ -8,9 +8,9 @@ Get identifiers, names, paths, URLs and words from the previous command output a
 
 ## Features
 
-* **Universal**. Forget about searching autocomplete plugins for every app you use and get the identifiers from the output.
+* **Universal**. Forget about searching autocomplete plugins for every app you use. Just get the identifiers from the previous output.
 
-* **Save time**. Forget about using mouse, touchpad or trackball to get any words from output to the next command.
+* **Save time**. Forget about using mouse, touchpad or trackball to get any words from screen to the next command.
 
 * **Secure**. It works the same way as xonsh shell and the security level is the same.
 
