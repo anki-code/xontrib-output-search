@@ -50,7 +50,7 @@ The recommended way as described above:
 zsh
 alias tx="tmux new-session xonsh ';' set -g status off"  # add alias to run xonsh in tmux without bottom status bar
 tx  # run xonsh in tmux
-xontrib load output_search
+xontrib load output_search  # add this to ~/.xonshrc
 ```
 
 After loading you can select tokens from latest not empty output:
