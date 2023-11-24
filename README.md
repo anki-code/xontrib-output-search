@@ -4,28 +4,16 @@ Get identifiers, names, paths, URLs and words from the previous command output a
 <img src="https://repository-images.githubusercontent.com/257978984/a0eaac80-0424-11eb-85ad-29809d2f792d">
 </p>
 
-<table width="100%">
-<col style="width:33%">
-<col style="width:33%">
-<col style="width:33%">
-<tbody>
-<tr>
-<td valign="top">
-<b>Save time</b>. Forget about using mouse, touchpad or trackball to get any words from output to the next command.
-</td>
-<td valign="top">
-<b>Secure</b>. The xontrib-output-search is not writing any output on the hard disk. Only latest not empty output stored in the memory. It works the same way as xonsh shell and the security level is the same.
-</td>
-<td valign="top">
-<b>Universal</b>. Forget about searching autocomplete plugins for every app you use and get the identifiers from the output.
-</td>
-</tr>
-</tbody>
-</table>
 
-<p align="center">  
-If you like the idea click ⭐ on the repo and and <a href="https://twitter.com/intent/tweet?text=Nice%20xontrib%20for%20the%20xonsh%20shell!&url=https://github.com/anki-code/xontrib-output-search" target="_blank">tweet</a>.
-</p>
+
+## Features
+
+* **Universal**. Forget about searching autocomplete plugins for every app you use and get the identifiers from the output.
+
+* **Save time**. Forget about using mouse, touchpad or trackball to get any words from output to the next command.
+
+* **Secure**. It works the same way as xonsh shell and the security level is the same.
+
 
 ## Install
 
