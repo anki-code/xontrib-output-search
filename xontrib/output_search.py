@@ -2,8 +2,13 @@
 
 import re, subprocess
 from tokenize_output.tokenize_output import tokenize_output
+from pathlib import Path as _Path
+import re as _re
 
-if not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False) and not "TMUX" in __xonsh__.env:
+if (not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False) and
+    not "TMUX" in __xonsh__.env and
+    not "ZELLIJ" in __xonsh__.env and 
+    not "WEZTERM_PANE" in __xonsh__.env):
     print('xontrib-output-search: Capturing is not working. Please read https://github.com/tokenizer/xontrib-output-search#note')
 
 _key_meta = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_META', 'escape')
@@ -66,19 +71,61 @@ def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
 __xonsh__.completers['xontrib_output_search'] = _xontrib_output_search_completer
 __xonsh__.completers.move_to_end('xontrib_output_search', last=False)
 
-def _tmux_current_pane_contents():
-    if not "TMUX" in __xonsh__.env:
-        return None
-    else:
+def _multiplexer_current_pane_contents():
+    output_str = ""
+    if "TMUX" in __xonsh__.env:
         try:
-            return subprocess.check_output(["tmux", "capture-pane", "-p"], timeout=1).decode()
+            output_str = subprocess.check_output(["tmux", "capture-pane", "-p"], timeout=1).decode()
         except:
             return None
+    if "ZELLIJ" in __xonsh__.env:
+        try:
+            zellij_dump_path: str = __xonsh__.env.get("XONTRIB_OUTPUT_SEARCH_DUMP_LOCATION") or "/tmp/zellidump"
+            pypath = _Path(zellij_dump_path)
+            try:
+                pypath.write_text("")
+                pypath.chmod(600)
+            except:
+                return None
+
+            try: subprocess.run(["zellij", "action", "dump-screen", zellij_dump_path], timeout=1)
+            except:
+                print("xontrib-output-search: Unable to dump zellij screen")
+                return None
+
+            try:
+                output_str = pypath.read_text()
+            except:
+                print("xontrib-output-search: Unable to read zellij screen dump")
+                return None
+
+            try:
+                pypath.write_text("")
+            except:
+                print("xontrib-output-search: unable to overwrite zellij dump with empty text, security!")
+                return None
+        except:
+            return None
+    if "WEZTERM_PANE" in __xonsh__.env:
+        try:
+            output_str = subprocess.check_output(["wezterm", "cli", "get-text", "--pane-id", __xonsh__.env["WEZTERM_PANE"]], timeout=1).decode()
+        except:
+            return None
+
+    if "XONTRIB_OUTPUT_SEARCH_REGEXES" in __xonsh__.env:
+        for regex in __xonsh__.env.get("XONTRIB_OUTPUT_SEARCH_REGEXES"):
+          if type(regex) is not _re.Pattern:
+              continue
+
+          output_str = regex.sub("", output_str)
+
+
+    return output_str
 
 _color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
 @events.on_postcommand
 def _save_output(cmd: str, rtn: int, out: str or None, ts: list, **kwargs):
-    out = out or _tmux_current_pane_contents()
+    out = out or _multiplexer_current_pane_contents()
     if out is not None:
         out = out.strip()
         if out:
