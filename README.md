@@ -128,6 +128,10 @@ $(echo 'Hello "world"!' | tokenize-output -p).split()
 # ['Hello', 'world']
 ```
 
+## Environement variables
+
+* `$XONTRIB_OUTPUT_SEARCH_WARNING` - show warnings from xontrib. Default `True`.
+
 ## Development
 
 The xontrib-output-search is using [tokenize-output](https://github.com/anki-code/tokenize-output) for tokenizing.
