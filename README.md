@@ -160,6 +160,10 @@ Workaround: Check [`XONSH_CAPTURE_ALWAYS`](https://xon.sh/envvars.html#xonsh-cap
 #### `cat file` is not captured ([xonsh/issues/3744](https://github.com/xonsh/xonsh/issues/3744))
 Workaround: `cat file | head` or `cat file | grep text`.
 
+#### `ls --hyperlink` is not working in tmux
+
+See also [tmux feature request: Hyperlinks](https://github.com/tmux/tmux/issues/911).
+
 #### The readline shell type was not tested
 
 We're using the xonsh recommended prompt-toolkit shell type to test the output search xontrib. There could be the issues in the readline shell type. PRs are welcome!
