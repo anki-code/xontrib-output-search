@@ -163,6 +163,7 @@ Workaround: `cat file | head` or `cat file | grep text`.
 #### `ls --hyperlink` is not working in tmux
 
 See also [tmux feature request: Hyperlinks](https://github.com/tmux/tmux/issues/911).
+Try [`zellij`](https://github.com/zellij-org/zellij) as workaround.
 
 #### The readline shell type was not tested
 
