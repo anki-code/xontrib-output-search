@@ -1,7 +1,8 @@
 <p align="center">
 Get identifiers, names, paths, URLs and words from the previous command output and use them for the next command in <a href="https://xon.sh">xonsh</a>.
 <br><br>
-<img src="https://repository-images.githubusercontent.com/257978984/a0eaac80-0424-11eb-85ad-29809d2f792d">
+<img src="https://repository-images.githubusercontent.com/257978984/743a49af-d6bf-4769-8638-3bc38d779414">
+<sup><i>(with <a href="https://github.com/anki-code/starship-prompt-mono">starship-prompt-mono</a>)</i></sup>
 </p>
 
 
