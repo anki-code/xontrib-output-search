@@ -3,8 +3,19 @@
 import re, subprocess
 from tokenize_output.tokenize_output import tokenize_output
 
-if __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_WARNING', True) and not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False) and not "TMUX" in __xonsh__.env:
-    print('xontrib-output-search: Capturing is not working. Please read https://github.com/tokenizer/xontrib-output-search#note')
+def _known_term():
+    env = __xonsh__.env
+    # Multiplexer first
+    if "TMUX" in env:
+        return 'tmux'
+    # Then terminal emulator
+    if 'KONSOLE_DBUS_SERVICE' in env and 'KONSOLE_DBUS_SESSION' in env:
+        return 'konsole'
+    return None
+
+if __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_WARNING', True):
+    if not __xonsh__.env.get('XONSH_CAPTURE_ALWAYS', False) and not _known_term():
+        print('xontrib-output-search: Capturing is not working. Please read https://github.com/tokenizer/xontrib-output-search#note')
 
 _key_meta = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY_META', 'escape')
 _key = __xonsh__.env.get('XONTRIB_OUTPUT_SEARCH_KEY', 'f')
@@ -66,8 +77,22 @@ def _xontrib_output_search_completer(prefix, line, begidx, endidx, ctx):
 __xonsh__.completers['xontrib_output_search'] = _xontrib_output_search_completer
 __xonsh__.completers.move_to_end('xontrib_output_search', last=False)
 
+def _konsole_current_session_contents():
+    if _known_term() != 'konsole':
+        return None
+    try:
+        return subprocess.check_output(
+            ["qdbus6",
+             __xonsh__.env['KONSOLE_DBUS_SERVICE'],
+             __xonsh__.env['KONSOLE_DBUS_SESSION'],
+             "org.kde.konsole.Session.getAllDisplayedText", "true"],
+            timeout=1,
+        ).decode()
+    except:
+        return None
+
 def _tmux_current_pane_contents():
-    if not "TMUX" in __xonsh__.env:
+    if _known_term() != 'tmux':
         return None
     else:
         try:
@@ -78,7 +103,7 @@ def _tmux_current_pane_contents():
 _color_regexp = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
 @events.on_postcommand
 def _save_output(cmd: str, rtn: int, out: str or None, ts: list, **kwargs):
-    out = out or _tmux_current_pane_contents()
+    out = out or _tmux_current_pane_contents() or _konsole_current_session_contents()
     if out is not None:
         out = out.strip()
         if out:
